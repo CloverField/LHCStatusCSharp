@@ -54,7 +54,7 @@
       <Name>CryoStatus</Name>
     </ProjectReference>
     <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
-      <Project>{70a33b64-8bea-470e-814b-4853cf88604f}</Project>
+      <Project>{215ac5fa-99e3-4948-931a-ca13206e8846}</Project>
       <Name>LHCEnums</Name>
     </ProjectReference>
   </ItemGroup>
