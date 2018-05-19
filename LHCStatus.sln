@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeamDumpStatus", "BeamDumpS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LHCEnums", "LHCEnums\LHCEnums.csproj", "{215AC5FA-99E3-4948-931A-CA13206E8846}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LHCStatusOptions", "LHCStatusOptions\LHCStatusOptions.csproj", "{A27C9D73-B2C6-4C34-8B39-DA4B8862642A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{215AC5FA-99E3-4948-931A-CA13206E8846}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{215AC5FA-99E3-4948-931A-CA13206E8846}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{215AC5FA-99E3-4948-931A-CA13206E8846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A27C9D73-B2C6-4C34-8B39-DA4B8862642A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A27C9D73-B2C6-4C34-8B39-DA4B8862642A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A27C9D73-B2C6-4C34-8B39-DA4B8862642A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A27C9D73-B2C6-4C34-8B39-DA4B8862642A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

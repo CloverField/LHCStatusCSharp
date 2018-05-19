@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using Cryogenics;
 using LHCEnums;
+using LHCStatusOptions;
+using BeamDump;
 
 namespace LHCStatus
 {
@@ -13,14 +16,19 @@ namespace LHCStatus
         static void Main(string[] args)
         {
             Console.WriteLine("What do you want to Check?");
-            Console.WriteLine("1. Cryo Status\n2. 60 AMP PC Permit Status \n3. RF Status");
+            var LHCStatusOptions = typeof(StatusOptions)
+                .GetFields()
+                .Select(f => f.GetValue(null))
+                .ToList();
+            var i = 1;
+            LHCStatusOptions.ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
             var input = Console.ReadLine().ToUpper();
             switch (input)
             {
                 case "1":
                     Console.WriteLine("What sector do you want to check?");
                     var cryoValues = Enum.GetValues(typeof(Machine.Sector)).Cast<Machine.Sector>();
-                    var i = 1;
+                    i = 1;
                     cryoValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
                     input = Console.ReadLine();
                     switch (input)
@@ -175,6 +183,31 @@ namespace LHCStatus
                             break;
                     }
                     break;
+                case "4":
+                    Console.WriteLine("What sector do you want to check?");
+                    var beamDumpValues = Enum.GetValues(typeof(Machine.BeamDump)).Cast<Machine.BeamDump>();
+                    i = 1;
+                    beamDumpValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
+                    input = Console.ReadLine();
+                    switch (input)
+                    {
+                        case "1":
+                            if(BeamDumpStatus.GetBeamDumpStatus(Machine.BeamDump.Beam1))
+                                Console.WriteLine("Everthing looks good for the Beam 1 Beam Dump");
+                            else
+                                Console.WriteLine("Looks like the Beam 1 Beam Dump is faulty");
+                            break;
+                        case "2":
+                            if (BeamDumpStatus.GetBeamDumpStatus(Machine.BeamDump.Beam2))
+                                Console.WriteLine("Everthing looks good for the Beam 2 Beam Dump");
+                            else
+                                Console.WriteLine("Looks like the Beam 2 Beam Dump is faulty");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+
                 default:
                     break;
             }

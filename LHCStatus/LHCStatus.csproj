@@ -49,6 +49,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BeamDumpStatus\BeamDumpStatus.csproj">
+      <Project>{56aeec69-63e4-4924-9ece-0bd7a33a186d}</Project>
+      <Name>BeamDumpStatus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CryoStatus\CryoStatus.csproj">
       <Project>{b1385b60-42a8-45a5-8444-6dbb0362c765}</Project>
       <Name>CryoStatus</Name>
@@ -56,6 +60,10 @@
     <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
       <Project>{215ac5fa-99e3-4948-931a-ca13206e8846}</Project>
       <Name>LHCEnums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LHCStatusOptions\LHCStatusOptions.csproj">
+      <Project>{a27c9d73-b2c6-4c34-8b39-da4b8862642a}</Project>
+      <Name>LHCStatusOptions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
