@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Drawing;
-using System.IO;
 using LHCEnums;
-using RetrieveBitmap;
+using System.IO;
 
 namespace Cryogenics
 {
@@ -15,9 +14,27 @@ namespace Cryogenics
     {
         private static bool GetCryoStatusPageAsync(out Bitmap cryoImg)
         {
-            if (!Retrieve.GetBitMap("https://vistar-capture.web.cern.ch/vistar-capture/lhc2.png", out cryoImg))
-                return false;
-            return true;
+            using (WebClient wc = new WebClient())
+            {
+                cryoImg = null;
+                var result = wc.DownloadDataTaskAsync("https://vistar-capture.web.cern.ch/vistar-capture/lhc2.png");
+                if (!result.Wait(3000))
+                    return false;
+
+                if (result.IsFaulted)
+                {
+                    if (result.Exception != null)
+                    {
+                        Console.WriteLine("Failed to retrieve Cryo Status Page with Exception: {0}", result.Exception);
+                        return false;
+                    }
+                    Console.WriteLine("Failed to retrieve Cryo Status Page");
+                    return false;
+                }
+
+                cryoImg = (Bitmap)Bitmap.FromStream(new MemoryStream(result.Result));
+                return true;
+            }
         }
 
         public static bool GetSectorStatus(Machine.Sector sector)

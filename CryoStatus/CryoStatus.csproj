@@ -49,10 +49,6 @@
       <Project>{70a33b64-8bea-470e-814b-4853cf88604f}</Project>
       <Name>LHCEnums</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RetrieveBitmap\RetrieveBitmap.csproj">
-      <Project>{8a97a280-9ff3-48b7-8a14-556b0be77cbf}</Project>
-      <Name>RetrieveBitmap</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
