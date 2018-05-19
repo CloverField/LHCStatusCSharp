@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B1385B60-42A8-45A5-8444-6DBB0362C765}</ProjectGuid>
+    <ProjectGuid>{55552803-7D9E-45F2-AC45-A6297C69072F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CryoStatus</RootNamespace>
-    <AssemblyName>CryoStatus</AssemblyName>
+    <RootNamespace>BeamDumpStatus</RootNamespace>
+    <AssemblyName>BeamDumpStatus</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,18 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CryoStatus.cs" />
+    <Compile Include="BeamDumpStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
-      <Project>{70a33b64-8bea-470e-814b-4853cf88604f}</Project>
-      <Name>LHCEnums</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RetrieveBitmap\RetrieveBitmap.csproj">
-      <Project>{8a97a280-9ff3-48b7-8a14-556b0be77cbf}</Project>
-      <Name>RetrieveBitmap</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
