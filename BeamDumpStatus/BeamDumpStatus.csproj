@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +43,16 @@
   <ItemGroup>
     <Compile Include="BeamDumpStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
+      <Project>{215ac5fa-99e3-4948-931a-ca13206e8846}</Project>
+      <Name>LHCEnums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RetrieveBitmap\RetrieveBitmap.csproj">
+      <Project>{8a97a280-9ff3-48b7-8a14-556b0be77cbf}</Project>
+      <Name>RetrieveBitmap</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
