@@ -18,7 +18,7 @@ namespace Cryogenics
             bool timedOut = false;
             var timer = new System.Timers.Timer
             {
-                Interval = 1000
+                Interval = 30000
             };
             timer.Elapsed += (t, args) =>
             {
@@ -276,6 +276,19 @@ namespace Cryogenics
                         {
                             imgseconeL.GetPixel(100, 440),//CM1L4
                             imgseconeL.GetPixel(188, 440)//CS1L4
+
+                        };
+                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                    }
+                case Machine.RF.Sector1R4:
+                    if (!GetCryoStatusPage(out Bitmap imgseconeR))
+                        return false;
+                    else
+                    {
+                        if (imgseconeR == null) return false;
+                        List<Color> colors = new List<Color>
+                        {
+
                         };
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
@@ -289,19 +302,6 @@ namespace Cryogenics
                         {
                             imgsectwoL.GetPixel(290, 440),//CM2L4
                             imgsectwoL.GetPixel(380, 440)//CS2L4
-                        };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
-                    }
-                case Machine.RF.Sector1R4:
-                    if (!GetCryoStatusPage(out Bitmap imgseconeR))
-                        return false;
-                    else
-                    {
-                        if (imgseconeR == null) return false;
-                        List<Color> colors = new List<Color>
-                        {
-                            imgseconeR.GetPixel(480, 440),//CM1R4
-                            imgseconeR.GetPixel(570, 440)//CS1R4
                         };
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
