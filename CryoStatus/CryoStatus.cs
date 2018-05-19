@@ -12,24 +12,28 @@ namespace Cryogenics
 {
     public class CryoStatus
     {
-        private static bool GetCryoStatusPage(out Bitmap cryoImg)
+        private static bool GetCryoStatusPageAsync(out Bitmap cryoImg)
         {
-            cryoImg = null;
-            bool timedOut = false;
-            var timer = new System.Timers.Timer
-            {
-                Interval = 30000
-            };
-            timer.Elapsed += (t, args) =>
-            {
-                timedOut = true;
-            };
             using (WebClient wc = new WebClient())
             {
-                timer.Start();
-                cryoImg = (Bitmap)Bitmap.FromStream(new MemoryStream(wc.DownloadData("https://vistar-capture.web.cern.ch/vistar-capture/lhc2.png")));
-                timer.Stop();
-                return !timedOut;
+                cryoImg = null;
+                var result = wc.DownloadDataTaskAsync("https://vistar-capture.web.cern.ch/vistar-capture/lhc2.png");
+                if (!result.Wait(3000))
+                    return false;
+
+                if (result.IsFaulted)
+                {
+                    if (result.Exception != null)
+                    {
+                        Console.WriteLine("Failed to retrieve Cryo Status Page with Exception: {0}", result.Exception);
+                        return false;
+                    }
+                    Console.WriteLine("Failed to retrieve Cryo Status Page");
+                    return false;
+                }
+
+                cryoImg = (Bitmap)Bitmap.FromStream(new MemoryStream(result.Result));
+                return true;
             }
         }
 
@@ -38,7 +42,7 @@ namespace Cryogenics
             switch (sector)
             {
                 case Machine.Sector.Sector12:
-                    if (!GetCryoStatusPage(out Bitmap imgsecone))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecone))
                         return false;
                     else
                     {
@@ -59,7 +63,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255,0,255,0));
                     }
                 case Machine.Sector.Sector23:
-                    if (!GetCryoStatusPage(out Bitmap imgsectwo))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsectwo))
                         return false;
                     else
                     {
@@ -76,7 +80,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector34:
-                    if (!GetCryoStatusPage(out Bitmap imgsecthree))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecthree))
                         return false;
                     else
                     {
@@ -91,7 +95,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector45:
-                    if (!GetCryoStatusPage(out Bitmap imgsecfour))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecfour))
                         return false;
                     else
                     {
@@ -110,7 +114,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector56:
-                    if (!GetCryoStatusPage(out Bitmap imgsecfive))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecfive))
                         return false;
                     else
                     {
@@ -129,7 +133,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector67:
-                    if (!GetCryoStatusPage(out Bitmap imgsecsix))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecsix))
                         return false;
                     else
                     {
@@ -144,7 +148,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector78:
-                    if (!GetCryoStatusPage(out Bitmap imgsecseven))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecseven))
                         return false;
                     else
                     {
@@ -161,7 +165,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector81:
-                    if (!GetCryoStatusPage(out Bitmap imgseceight))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgseceight))
                         return false;
                     else
                     {
@@ -192,7 +196,7 @@ namespace Cryogenics
             switch (sector)
             {
                 case Machine.Sector.Sector12:
-                    if (!GetCryoStatusPage(out Bitmap imgsecone))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecone))
                         return false;
                     else
                     {
@@ -200,7 +204,7 @@ namespace Cryogenics
                         return imgsecone.GetPixel(108, 403) == Color.FromArgb(255, 0, 255, 0);
                     }
                 case Machine.Sector.Sector23:
-                    if (!GetCryoStatusPage(out Bitmap imgsectwo))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsectwo))
                         return false;
                     else
                     {
@@ -208,7 +212,7 @@ namespace Cryogenics
                         return imgsectwo.GetPixel(203, 403) == Color.FromArgb(255, 0, 255, 0);
                     }
                 case Machine.Sector.Sector34:
-                    if (!GetCryoStatusPage(out Bitmap imgsecthree))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecthree))
                         return false;
                     else
                     {
@@ -216,7 +220,7 @@ namespace Cryogenics
                         return imgsecthree.GetPixel(297, 403) == Color.FromArgb(255, 0, 255, 0);
                     }
                 case Machine.Sector.Sector45:
-                    if (!GetCryoStatusPage(out Bitmap imgsecfour))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecfour))
                         return false;
                     else
                     {
@@ -224,7 +228,7 @@ namespace Cryogenics
                         return imgsecfour.GetPixel(392, 402) == Color.FromArgb(255, 0, 255, 0);
                     }
                 case Machine.Sector.Sector56:
-                    if (!GetCryoStatusPage(out Bitmap imgsecfive))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecfive))
                         return false;
                     else
                     {
@@ -232,7 +236,7 @@ namespace Cryogenics
                         return imgsecfive.GetPixel(498, 402) == Color.FromArgb(255, 0, 255, 0);
                     }
                 case Machine.Sector.Sector67:
-                    if (!GetCryoStatusPage(out Bitmap imgsecsix))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecsix))
                         return false;
                     else
                     {
@@ -240,7 +244,7 @@ namespace Cryogenics
                         return imgsecsix.GetPixel(595, 402) == Color.FromArgb(255, 0, 255, 0);
                     }
                 case Machine.Sector.Sector78:
-                    if (!GetCryoStatusPage(out Bitmap imgsecseven))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsecseven))
                         return false;
                     else
                     {
@@ -248,7 +252,7 @@ namespace Cryogenics
                         return imgsecseven.GetPixel(688, 403) == Color.FromArgb(255, 0, 255, 0);
                     }
                 case Machine.Sector.Sector81:
-                    if (!GetCryoStatusPage(out Bitmap imgseceight))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgseceight))
                         return false;
                     else
                     {
@@ -267,7 +271,7 @@ namespace Cryogenics
             switch (rf)
             {
                 case Machine.RF.Sector1L4:
-                    if (!GetCryoStatusPage(out Bitmap imgseconeL))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgseconeL))
                         return false;
                     else
                     {
@@ -281,7 +285,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.RF.Sector1R4:
-                    if (!GetCryoStatusPage(out Bitmap imgseconeR))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgseconeR))
                         return false;
                     else
                     {
@@ -293,7 +297,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.RF.Sector2L4:
-                    if (!GetCryoStatusPage(out Bitmap imgsectwoL))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsectwoL))
                         return false;
                     else
                     {
@@ -306,7 +310,7 @@ namespace Cryogenics
                         return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.RF.Sector2R4:
-                    if (!GetCryoStatusPage(out Bitmap imgsectwoR))
+                    if (!GetCryoStatusPageAsync(out Bitmap imgsectwoR))
                         return false;
                     else
                     {
