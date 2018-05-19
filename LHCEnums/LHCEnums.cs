@@ -27,6 +27,12 @@ namespace LHCEnums
             Sector1R4,
             Sector2R4
         }
+
+        public enum BeamDump
+        {
+            Beam1,
+            Beam2
+        }
     }
 }
 
