@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LHCEnums", "LHCEnums\LHCEnu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryoStatus", "CryoStatus\CryoStatus.csproj", "{B1385B60-42A8-45A5-8444-6DBB0362C765}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeamDumpStatus", "BeamDumpStatus\BeamDumpStatus.csproj", "{55552803-7D9E-45F2-AC45-A6297C69072F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetrieveBitmap", "RetrieveBitmap\RetrieveBitmap.csproj", "{8A97A280-9FF3-48B7-8A14-556B0BE77CBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{B1385B60-42A8-45A5-8444-6DBB0362C765}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1385B60-42A8-45A5-8444-6DBB0362C765}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1385B60-42A8-45A5-8444-6DBB0362C765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55552803-7D9E-45F2-AC45-A6297C69072F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55552803-7D9E-45F2-AC45-A6297C69072F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55552803-7D9E-45F2-AC45-A6297C69072F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55552803-7D9E-45F2-AC45-A6297C69072F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A97A280-9FF3-48B7-8A14-556B0BE77CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A97A280-9FF3-48B7-8A14-556B0BE77CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A97A280-9FF3-48B7-8A14-556B0BE77CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A97A280-9FF3-48B7-8A14-556B0BE77CBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
