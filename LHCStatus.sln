@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LHCStatus", "LHCStatus\LHCStatus.csproj", "{8E273D26-13B6-4BA2-8528-7935FA6CA0DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LHCEnums", "LHCEnums\LHCEnums.csproj", "{70A33B64-8BEA-470E-814B-4853CF88604F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryoStatus", "CryoStatus\CryoStatus.csproj", "{B1385B60-42A8-45A5-8444-6DBB0362C765}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8E273D26-13B6-4BA2-8528-7935FA6CA0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E273D26-13B6-4BA2-8528-7935FA6CA0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E273D26-13B6-4BA2-8528-7935FA6CA0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A33B64-8BEA-470E-814B-4853CF88604F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A33B64-8BEA-470E-814B-4853CF88604F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A33B64-8BEA-470E-814B-4853CF88604F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A33B64-8BEA-470E-814B-4853CF88604F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1385B60-42A8-45A5-8444-6DBB0362C765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1385B60-42A8-45A5-8444-6DBB0362C765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1385B60-42A8-45A5-8444-6DBB0362C765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1385B60-42A8-45A5-8444-6DBB0362C765}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
