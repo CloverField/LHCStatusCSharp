@@ -18,9 +18,9 @@ namespace BeamDump
             return true;
         }
 
-        public static bool GetBeamDumpStatus(Machine.BeamDump beamDump)
+        public static bool GetBeamDumpStatus(Machine.BeamDump beam)
         {
-            switch (beamDump)
+            switch (beam)
             {
                 case Machine.BeamDump.Beam1:
                     if (!GetBeamDumpStatusAsync(out Bitmap beamDumpBeamOneImg))
