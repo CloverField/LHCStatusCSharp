@@ -28,7 +28,14 @@ namespace BeamDump.Tests
         [TestMethod()]
         public void GetBeamDumpStatusTest()
         {
-            Assert.Fail();
+            try
+            {
+                BeamDumpStatus.GetBeamDumpStatus(Machine.Beam.Beam1, Machine.BeamDump.Components.BeamDumped);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
         }
     }
 }
