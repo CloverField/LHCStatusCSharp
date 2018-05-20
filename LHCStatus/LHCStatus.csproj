@@ -57,6 +57,10 @@
       <Project>{b1385b60-42a8-45a5-8444-6dbb0362c765}</Project>
       <Name>CryoStatus</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EXPMagnetStatus\EXPMagnetStatus.csproj">
+      <Project>{d2efcfb7-3b80-46c3-9b72-4259be587b99}</Project>
+      <Name>EXPMagnetStatus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
       <Project>{215ac5fa-99e3-4948-931a-ca13206e8846}</Project>
       <Name>LHCEnums</Name>

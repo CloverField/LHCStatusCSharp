@@ -33,6 +33,16 @@ namespace LHCEnums
             Beam1,
             Beam2
         }
+
+        public enum EXPMagnets
+        {
+            ALICE_solenoid,
+            ALICE_dipole,
+            ATLAS_solenoid,
+            ATLAS_torid,
+            CMS_solenoid,
+            LHCb_dipole
+        }
     }
 }
 
