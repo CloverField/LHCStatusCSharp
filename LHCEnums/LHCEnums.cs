@@ -28,10 +28,33 @@ namespace LHCEnums
             Sector2R4
         }
 
-        public enum BeamDump
+        public enum Beam
         {
             Beam1,
             Beam2
+        }
+
+        public class BeamDump
+        {
+            public enum Components
+            {
+                BeamDumped,
+                Kicker,
+                BETS,
+                IPOC_U_Beam_Dump_Pane,
+                LASS,
+                RETRIGGER,
+                XPOC,
+                REMOTE_U_Beam_Dump_Pane,
+                ON_U_Beam_Dump_Pane,
+                REMOTE_U_Injection_Pane,
+                ON_U_Injection_Pane,
+                TIMING_ON,
+                CONDITIONING,
+                TIMEOUT,
+                IPOC_U_Injection_Pane,
+                IQC
+            }
         }
 
         public enum EXPMagnets
@@ -46,12 +69,6 @@ namespace LHCEnums
 
         public class Page1
         {
-            public enum Beam
-            {
-                Beam1,
-                Beam2
-            }
-
             public enum SMPFlags
             {
                 Link_Status_of_Beam_Permits,
