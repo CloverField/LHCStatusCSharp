@@ -29,56 +29,56 @@ namespace LHCStatus
             {
                 case "1":
                     Console.WriteLine("What sector do you want to check?");
-                    var cryoValues = Enum.GetValues(typeof(Machine.Sector)).Cast<Machine.Sector>();
+                    var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
                     i = 1;
                     cryoValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
                     input = Console.ReadLine();
                     switch (input)
                     {
                         case "1":
-                            if (CryoStatus.GetSectorStatus(Machine.Sector.Sector12))
+                            if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector12))
                                 Console.WriteLine("Everthing looks good in Sector 12.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector 12.");
                             break;
                         case "2":
-                            if(CryoStatus.GetSectorStatus(Machine.Sector.Sector23))
+                            if(CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector23))
                                 Console.WriteLine("Everthing looks good in Sector 23.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector 23.");
                             break;
                         case "3":
-                            if (CryoStatus.GetSectorStatus(Machine.Sector.Sector34))
+                            if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector34))
                                 Console.WriteLine("Everthing looks good in Sector 34.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector 34.");
                             break;
                         case "4":
-                            if (CryoStatus.GetSectorStatus(Machine.Sector.Sector45))
+                            if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector45))
                                 Console.WriteLine("Everthing looks good in Sector 45.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector 45.");
                             break;
                         case "5":
-                            if (CryoStatus.GetSectorStatus(Machine.Sector.Sector56))
+                            if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector56))
                                 Console.WriteLine("Everthing looks good in Sector 56.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector 56.");
                             break;
                         case "6":
-                            if (CryoStatus.GetSectorStatus(Machine.Sector.Sector67))
+                            if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector67))
                                 Console.WriteLine("Everthing looks good in Sector 67.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector 67.");
                             break;
                         case "7":
-                            if (CryoStatus.GetSectorStatus(Machine.Sector.Sector78))
+                            if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector78))
                                 Console.WriteLine("Everthing looks good in Sector 78.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector 78.");
                             break;
                         case "8":
-                            if (CryoStatus.GetSectorStatus(Machine.Sector.Sector81))
+                            if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector81))
                                 Console.WriteLine("Everthing looks good in Sector 81.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector 81.");
@@ -89,56 +89,56 @@ namespace LHCStatus
                     break;
                 case "2":
                     Console.WriteLine("What sector do you want to check?");
-                    var sectorValues = Enum.GetValues(typeof(Machine.Sector)).Cast<Machine.Sector>();
+                    var sectorValues = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
                     i = 1;
                     sectorValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
                     input = Console.ReadLine();
                     switch (input)
                     {
                         case "1":
-                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector12))
+                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S12))
                                 Console.WriteLine("The PC Permit is set in Sector 12.");
                             else
                                 Console.WriteLine("Looks like the PC Permit is not set in Sector 12.");
                             break;
                         case "2":
-                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector23))
+                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S23))
                                 Console.WriteLine("The PC Permit is set in Sector 23.");
                             else
                                 Console.WriteLine("Looks like the PC Permit is not set in Sector 23.");
                             break;
                         case "3":
-                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector34))
+                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S34))
                                 Console.WriteLine("The PC Permit is set in Sector 34.");
                             else
                                 Console.WriteLine("Looks like the PC Permit is not set in Sector 34.");
                             break;
                         case "4":
-                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector45))
+                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S45))
                                 Console.WriteLine("The PC Permit is set in Sector 45.");
                             else
                                 Console.WriteLine("Looks like the PC Permit is not set in Sector 45.");
                             break;
                         case "5":
-                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector56))
+                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S56))
                                 Console.WriteLine("The PC Permit is set in Sector 56.");
                             else
                                 Console.WriteLine("Looks like the PC Permit is not set in Sector 56.");
                             break;
                         case "6":
-                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector67))
+                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S67))
                                 Console.WriteLine("The PC Permit is set in Sector 67.");
                             else
                                 Console.WriteLine("Looks like the PC Permit is not set in Sector 67.");
                             break;
                         case "7":
-                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector78))
+                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S78))
                                 Console.WriteLine("The PC Permit is set in Sector 78.");
                             else
                                 Console.WriteLine("Looks like the PC Permit is not set in Sector 78");
                             break;
                         case "8":
-                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector81))
+                            if (CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S81))
                                 Console.WriteLine("The PC Permit is set in Sector 81.");
                             else
                                 Console.WriteLine("Looks like the PC Permit is not set in Sector 81.");
@@ -149,32 +149,32 @@ namespace LHCStatus
                     break;
                 case "3":
                     Console.WriteLine("What sector do you want to check?");
-                    var rfValues = Enum.GetValues(typeof(Machine.RF)).Cast<Machine.RF>();
+                    var rfValues = Enum.GetValues(typeof(Machine.RF.Sectors)).Cast<Machine.RF.Sectors>();
                     i = 1;
                     rfValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
                     input = Console.ReadLine();
                     switch (input)
                     {
                         case "1":
-                            if (CryoStatus.GetRFStatus(Machine.RF.Sector1L4))
+                            if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector1L4))
                                 Console.WriteLine("Everthing looks good in Sector1L4.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector1L4.");
                             break;
                         case "2":
-                            if (CryoStatus.GetRFStatus(Machine.RF.Sector1R4))
+                            if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector1R4))
                                 Console.WriteLine("Everthing looks good in Sector1R4.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector1R4.");
                             break;
                         case "3":
-                            if (CryoStatus.GetRFStatus(Machine.RF.Sector2L4))
+                            if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector2L4))
                                 Console.WriteLine("Everthing looks good in Sector2L4.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector2L4.");
                             break;
                         case "4":
-                            if (CryoStatus.GetRFStatus(Machine.RF.Sector2R4))
+                            if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector2R4))
                                 Console.WriteLine("Everthing looks good in Sector2R4.");
                             else
                                 Console.WriteLine("Looks like Cryo is down in Sector2R4.");
