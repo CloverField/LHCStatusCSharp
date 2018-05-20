@@ -69,6 +69,10 @@
       <Project>{a27c9d73-b2c6-4c34-8b39-da4b8862642a}</Project>
       <Name>LHCStatusOptions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Page1Status\Page1Status.csproj">
+      <Project>{65e96b11-6974-4e50-983b-2c7f90d754cc}</Project>
+      <Name>Page1Status</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
