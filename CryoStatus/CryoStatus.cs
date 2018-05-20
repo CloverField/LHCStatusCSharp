@@ -43,7 +43,7 @@ namespace Cryogenics
                             imgsecone.GetPixel(858, 100),//CMITL2
                             imgsecone.GetPixel(948, 100)//CSITL2
                         };
-                        return colors.Any(c => c == Color.FromArgb(255,0,255,0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector23:
                     if (!GetCryoStatusPageAsync(out Bitmap imgsectwo))
@@ -60,7 +60,7 @@ namespace Cryogenics
                             imgsectwo.GetPixel(478, 140),//CMAML3
                             imgsectwo.GetPixel(568, 140)//CSAML3
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector34:
                     if (!GetCryoStatusPageAsync(out Bitmap imgsecthree))
@@ -75,7 +75,7 @@ namespace Cryogenics
                             imgsecthree.GetPixel(668, 175),//CMMSL1
                             imgsecthree.GetPixel(758, 175)//CSMSL1
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector45:
                     if (!GetCryoStatusPageAsync(out Bitmap imgsecfour))
@@ -94,7 +94,7 @@ namespace Cryogenics
                             imgsecfour.GetPixel(858, 210),//CMITL6
                             imgsecfour.GetPixel(948, 210)//CSITL6
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector56:
                     if (!GetCryoStatusPageAsync(out Bitmap imgsecfive))
@@ -113,7 +113,7 @@ namespace Cryogenics
                             imgsecfive.GetPixel(668, 245),//CMMSL6
                             imgsecfive.GetPixel(758, 245)//CSMSL6
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector67:
                     if (!GetCryoStatusPageAsync(out Bitmap imgsecsix))
@@ -128,7 +128,7 @@ namespace Cryogenics
                             imgsecsix.GetPixel(478, 280),//CMAML7
                             imgsecsix.GetPixel(568, 280)//CSAML7
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector78:
                     if (!GetCryoStatusPageAsync(out Bitmap imgsecseven))
@@ -145,7 +145,7 @@ namespace Cryogenics
                             imgsecseven.GetPixel(858, 315),//CMITL8
                             imgsecseven.GetPixel(948, 315)//CSITL8
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.Sector.Sector81:
                     if (!GetCryoStatusPageAsync(out Bitmap imgseceight))
@@ -166,7 +166,7 @@ namespace Cryogenics
                             imgseceight.GetPixel(858, 350),//CMITL1
                             imgseceight.GetPixel(948, 350)//CSITL1
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 default:
                     break;
@@ -265,7 +265,7 @@ namespace Cryogenics
                             imgseconeL.GetPixel(188, 440)//CS1L4
 
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.RF.Sector1R4:
                     if (!GetCryoStatusPageAsync(out Bitmap imgseconeR))
@@ -277,7 +277,7 @@ namespace Cryogenics
                         {
 
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.RF.Sector2L4:
                     if (!GetCryoStatusPageAsync(out Bitmap imgsectwoL))
@@ -290,7 +290,7 @@ namespace Cryogenics
                             imgsectwoL.GetPixel(290, 440),//CM2L4
                             imgsectwoL.GetPixel(380, 440)//CS2L4
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.RF.Sector2R4:
                     if (!GetCryoStatusPageAsync(out Bitmap imgsectwoR))
@@ -303,7 +303,7 @@ namespace Cryogenics
                             imgsectwoR.GetPixel(670, 440),//CM2R4
                             imgsectwoR.GetPixel(760, 440)//CS2R4
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 default:
                     break;

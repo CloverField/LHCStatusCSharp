@@ -32,7 +32,7 @@ namespace EXPMagnetStatus
                         {
                             aliceSolenoidImg.GetPixel(365,60)
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.EXPMagnets.ALICE_dipole:
                     if (!GetMagnetStatusPageAsync(out Bitmap aliceDipoleIMG))
@@ -44,7 +44,7 @@ namespace EXPMagnetStatus
                         {
                             aliceDipoleIMG.GetPixel(365,100)
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.EXPMagnets.ATLAS_solenoid:
                     if (!GetMagnetStatusPageAsync(out Bitmap atlasSolenoidImg))
@@ -56,7 +56,7 @@ namespace EXPMagnetStatus
                         {
                             atlasSolenoidImg.GetPixel(365,140)
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.EXPMagnets.ATLAS_torid:
                     if (!GetMagnetStatusPageAsync(out Bitmap atlasToridImg))
@@ -68,7 +68,7 @@ namespace EXPMagnetStatus
                         {
                             atlasToridImg.GetPixel(365,180)
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.EXPMagnets.CMS_solenoid:
                     if (!GetMagnetStatusPageAsync(out Bitmap cmsSolenoidImg))
@@ -80,7 +80,7 @@ namespace EXPMagnetStatus
                         {
                             cmsSolenoidImg.GetPixel(365,220)
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.EXPMagnets.LHCb_dipole:
                     if (!GetMagnetStatusPageAsync(out Bitmap lhcbDipoleImg))
@@ -92,7 +92,7 @@ namespace EXPMagnetStatus
                         {
                             lhcbDipoleImg.GetPixel(365,260)
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 default:
                     break;

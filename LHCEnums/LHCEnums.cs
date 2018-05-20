@@ -43,6 +43,25 @@ namespace LHCEnums
             CMS_solenoid,
             LHCb_dipole
         }
+
+        public class Page1
+        {
+            public enum Beam
+            {
+                Beam1,
+                Beam2
+            }
+
+            public enum SMPFlags
+            {
+                Link_Status_of_Beam_Permits,
+                Global_Beam_Permit,
+                Setup_Beam,
+                Beam_Presence,
+                Moveable_Devices_Allowed_In,
+                Stable_Beams
+            }
+        }
     }
 }
 

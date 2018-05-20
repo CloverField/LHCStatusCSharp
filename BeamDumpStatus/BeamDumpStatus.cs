@@ -47,7 +47,7 @@ namespace BeamDump
                             beamDumpBeamOneImg.GetPixel(111,210),//IPOC - Injection Pane
                             beamDumpBeamOneImg.GetPixel(290,210)//IQC
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.BeamDump.Beam2:
                     if (!GetBeamDumpStatusAsync(out Bitmap beamDumpBeamTwoImg))
@@ -75,7 +75,7 @@ namespace BeamDump
                             beamDumpBeamTwoImg.GetPixel(511,210),//IPOC - Injection Pane
                             beamDumpBeamTwoImg.GetPixel(690,210)//IQC
                         };
-                        return colors.Any(c => c == Color.FromArgb(255, 0, 255, 0));
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 default:
                     break;
