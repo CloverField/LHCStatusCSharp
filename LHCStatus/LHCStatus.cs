@@ -13,7 +13,7 @@ using Page1Status;
 
 namespace LHCStatus
 {
-    class Program
+    class LHCStatus
     {
         static void Main(string[] args)
         {
