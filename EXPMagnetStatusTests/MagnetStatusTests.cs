@@ -13,11 +13,24 @@ namespace EXPMagnetStatus.Tests
     public class MagnetStatusTests
     {
         [TestMethod()]
+        public void GetEXPMagnetStatusIndividualTest()
+        {
+            try
+            {
+                MagnetStatus.GetEXPMagnetStatusIndividual(Machine.EXPMagnets.ALICE_dipole);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod()]
         public void GetEXPMagnetStatusTest()
         {
             try
             {
-                MagnetStatus.GetEXPMagnetStatus(Machine.EXPMagnets.ALICE_dipole);
+                MagnetStatus.GetEXPMagnetStatus();
             }
             catch (Exception ex)
             {

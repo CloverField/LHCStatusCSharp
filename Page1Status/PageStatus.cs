@@ -18,11 +18,11 @@ namespace Page1Status
             return true;
         }
 
-        public static bool GetBeamSMPStatus(Machine.Page1.Beam beam)
+        public static bool GetBeamSMPStatus(Machine.Beam beam)
         {
             switch (beam)
             {
-                case Machine.Page1.Beam.Beam1:
+                case Machine.Beam.Beam1:
                     if (!GetPage1PageAsync(out Bitmap beam1StatusImg))
                         return false;
                     else
@@ -46,7 +46,7 @@ namespace Page1Status
 
                         return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
-                case Machine.Page1.Beam.Beam2:
+                case Machine.Beam.Beam2:
                     if (!GetPage1PageAsync(out Bitmap beam2Statusimg))
                         return false;
                     else
@@ -76,11 +76,11 @@ namespace Page1Status
             return false;
         }
 
-        public static bool GetSMPStatus(Machine.Page1.Beam beam, Machine.Page1.SMPFlags smpFlag)
+        public static bool GetSMPStatus(Machine.Beam beam, Machine.Page1.SMPFlags smpFlag)
         {
             switch (beam)
             {
-                case Machine.Page1.Beam.Beam1:
+                case Machine.Beam.Beam1:
                     switch (smpFlag)
                     {
                         case Machine.Page1.SMPFlags.Link_Status_of_Beam_Permits:
@@ -159,7 +159,7 @@ namespace Page1Status
                             break;
                     }
                     break;
-                case Machine.Page1.Beam.Beam2:
+                case Machine.Beam.Beam2:
                     switch (smpFlag)
                     {
                         case Machine.Page1.SMPFlags.Link_Status_of_Beam_Permits:

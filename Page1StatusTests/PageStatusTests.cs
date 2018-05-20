@@ -17,7 +17,7 @@ namespace Page1Status.Tests
         {
             try
             {
-                PageStatus.GetBeamSMPStatus(Machine.Page1.Beam.Beam1);
+                PageStatus.GetBeamSMPStatus(Machine.Beam.Beam1);
             }
             catch (Exception ex)
             {
@@ -30,7 +30,7 @@ namespace Page1Status.Tests
         {
             try
             {
-                PageStatus.GetSMPStatus(Machine.Page1.Beam.Beam1,Machine.Page1.SMPFlags.Beam_Presence);
+                PageStatus.GetSMPStatus(Machine.Beam.Beam1,Machine.Page1.SMPFlags.Beam_Presence);
             }
             catch (Exception ex)
             {

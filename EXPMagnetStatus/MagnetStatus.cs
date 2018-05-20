@@ -18,7 +18,27 @@ namespace EXPMagnetStatus
             return true;
         }
 
-        public static bool GetEXPMagnetStatus(Machine.EXPMagnets expMagnets)
+        public static bool GetEXPMagnetStatus()
+        {
+            if (!GetMagnetStatusPageAsync(out Bitmap magnetStatusImg))
+                return false;
+            else
+            {
+                if (magnetStatusImg == null) return false;
+                List<Color> colors = new List<Color>
+                {
+                    magnetStatusImg.GetPixel(365,60),
+                    magnetStatusImg.GetPixel(365,100),
+                    magnetStatusImg.GetPixel(365,140),
+                    magnetStatusImg.GetPixel(365,180),
+                    magnetStatusImg.GetPixel(365,220),
+                    magnetStatusImg.GetPixel(365,260)
+                };
+                return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
+            }
+        }
+
+        public static bool GetEXPMagnetStatusIndividual(Machine.EXPMagnets expMagnets)
         {
             switch (expMagnets)
             {
@@ -35,14 +55,14 @@ namespace EXPMagnetStatus
                         return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
                 case Machine.EXPMagnets.ALICE_dipole:
-                    if (!GetMagnetStatusPageAsync(out Bitmap aliceDipoleIMG))
+                    if (!GetMagnetStatusPageAsync(out Bitmap aliceDipoleImg))
                         return false;
                     else
                     {
-                        if (aliceDipoleIMG == null) return false;
+                        if (aliceDipoleImg == null) return false;
                         List<Color> colors = new List<Color>
                         {
-                            aliceDipoleIMG.GetPixel(365,100)
+                            aliceDipoleImg.GetPixel(365,100)
                         };
                         return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
