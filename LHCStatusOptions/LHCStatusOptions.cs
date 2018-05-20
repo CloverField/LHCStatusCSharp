@@ -7,5 +7,7 @@
         public const string RFStatus = "RF Status";
         public const string BeamDumpStatus = "Beam Dump Status";
         public const string EXPMagnetStatus = "Experiment Magnet Status";
+        public const string Page1BeamStatus = "Page 1 Beam SMP Status";
+        public const string Page1BeamSMPStatus = "Page 1 Individual SMP Beam Status";
     }
 }
