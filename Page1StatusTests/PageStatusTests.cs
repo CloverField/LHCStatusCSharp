@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using LHCEnums;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Page1Status;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,27 @@ namespace Page1Status.Tests
         [TestMethod()]
         public void GetBeamSMPStatusTest()
         {
-            Assert.Fail();
+            try
+            {
+                PageStatus.GetBeamSMPStatus(Machine.Page1.Beam.Beam1);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
         }
 
         [TestMethod()]
         public void GetSMPStatusTest()
         {
-            Assert.Fail();
+            try
+            {
+                PageStatus.GetSMPStatus(Machine.Page1.Beam.Beam1,Machine.Page1.SMPFlags.Beam_Presence);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
         }
     }
 }

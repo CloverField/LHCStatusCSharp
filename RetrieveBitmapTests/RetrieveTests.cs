@@ -15,8 +15,17 @@ namespace RetrieveBitmap.Tests
         [TestMethod()]
         public void GetBitMapTest()
         {
-            if (Retrieve.GetBitMap("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png", out Bitmap bitmap))
-                Assert.IsNotNull(bitmap);
+            try
+            {
+                if (Retrieve.GetBitMap("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png", out Bitmap bitmap))
+                    Assert.IsNotNull(bitmap);
+                else
+                    Assert.Fail("Was Unable to retrieve a bitmap.");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
         }
     }
 }

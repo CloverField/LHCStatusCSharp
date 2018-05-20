@@ -67,6 +67,10 @@
       <Project>{56AEEC69-63E4-4924-9ECE-0BD7A33A186D}</Project>
       <Name>BeamDumpStatus</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
+      <Project>{215AC5FA-99E3-4948-931A-CA13206E8846}</Project>
+      <Name>LHCEnums</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

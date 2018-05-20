@@ -67,6 +67,10 @@
       <Project>{D2EFCFB7-3B80-46C3-9B72-4259BE587B99}</Project>
       <Name>EXPMagnetStatus</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
+      <Project>{215AC5FA-99E3-4948-931A-CA13206E8846}</Project>
+      <Name>LHCEnums</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

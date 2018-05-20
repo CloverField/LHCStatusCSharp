@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LHCEnums;
 
 namespace EXPMagnetStatus.Tests
 {
@@ -14,7 +15,14 @@ namespace EXPMagnetStatus.Tests
         [TestMethod()]
         public void GetEXPMagnetStatusTest()
         {
-            Assert.Fail();
+            try
+            {
+                MagnetStatus.GetEXPMagnetStatus(Machine.EXPMagnets.ALICE_dipole);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
         }
     }
 }

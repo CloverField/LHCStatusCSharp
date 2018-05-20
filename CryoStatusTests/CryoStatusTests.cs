@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LHCEnums;
 
 namespace Cryogenics.Tests
 {
@@ -14,19 +15,40 @@ namespace Cryogenics.Tests
         [TestMethod()]
         public void GetSectorStatusTest()
         {
-            Assert.Fail();
+            try
+            {
+                CryoStatus.GetSectorStatus(Machine.Sector.Sector12);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
         }
 
         [TestMethod()]
         public void GetSixtyAmpPCPermitStatusTest()
         {
-            Assert.Fail();
+            try
+            {
+                CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector12);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
         }
 
         [TestMethod()]
         public void GetRFStatusTest()
         {
-            Assert.Fail();
+            try
+            {
+                CryoStatus.GetRFStatus(Machine.RF.Sector1L4);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
         }
     }
 }

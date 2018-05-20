@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LHCEnums;
 
 namespace BeamDump.Tests
 {
@@ -14,7 +15,14 @@ namespace BeamDump.Tests
         [TestMethod()]
         public void GetBeamDumpStatusTest()
         {
-            Assert.Fail();
+            try
+            {
+                BeamDumpStatus.GetBeamDumpStatus(Machine.BeamDump.Beam1);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
         }
     }
 }

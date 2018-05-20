@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
+      <Project>{215AC5FA-99E3-4948-931A-CA13206E8846}</Project>
+      <Name>LHCEnums</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Page1Status\Page1Status.csproj">
       <Project>{65E96B11-6974-4E50-983B-2C7F90D754CC}</Project>
       <Name>Page1Status</Name>
