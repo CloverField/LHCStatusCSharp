@@ -17,7 +17,20 @@ namespace Cryogenics.Tests
         {
             try
             {
-                CryoStatus.GetSectorStatus(Machine.Sector.Sector12);
+                CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector12);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod()]
+        public void GetSectorStatusIndividualTest()
+        {
+            try
+            {
+                CryoStatus.GetSectorStatusIndividual(Machine.Cryo.Sectors.Sector12, Machine.Cryo.Magnets.Magnet.CMAML3);
             }
             catch (Exception ex)
             {
@@ -30,7 +43,7 @@ namespace Cryogenics.Tests
         {
             try
             {
-                CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Sector.Sector12);
+                CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S12);
             }
             catch (Exception ex)
             {
@@ -43,7 +56,7 @@ namespace Cryogenics.Tests
         {
             try
             {
-                CryoStatus.GetRFStatus(Machine.RF.Sector1L4);
+                CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector1L4);
             }
             catch (Exception ex)
             {
