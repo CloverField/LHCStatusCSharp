@@ -40,6 +40,7 @@ namespace LHCEnums
 
                 public enum Magnet
                 {
+                    #region Sector12
                     //Sector12
                     CMITR1,
                     CSITR1,
@@ -51,6 +52,8 @@ namespace LHCEnums
                     CSMSL2,
                     CMITL2,
                     CSITL2,
+                    #endregion
+                    #region Sector23
                     //Sector23
                     CMITR2,
                     CSITR2,
@@ -58,11 +61,15 @@ namespace LHCEnums
                     CSMSR2,
                     CMAML3,
                     CSAML3,
+                    #endregion
+                    #region Sector34
                     //Sector34
-                    CMARM3,
-                    CSARM3,
+                    CMAMR3,
+                    CSAMR3,
                     CMMSL4,
                     CSMSL4,
+                    #endregion
+                    #region Sector45
                     //Sector45
                     CMMSR4,
                     CSMSR4,
@@ -72,6 +79,8 @@ namespace LHCEnums
                     CSMSL5,
                     CMITL5,
                     CSITL5,
+                    #endregion
+                    #region Sector56
                     //Sector56
                     CMITR5,
                     CSITR5,
@@ -81,11 +90,15 @@ namespace LHCEnums
                     CSAR56,
                     CMMSL6,
                     CSMSL6,
+                    #endregion
+                    #region Sector67
                     //Sector67
                     CMMSR6,
                     CSMSR6,
                     CMAML7,
                     CSAML7,
+                    #endregion
+                    #region Sector78
                     //Sector78
                     CMAMR7,
                     CSAMR7,
@@ -93,6 +106,8 @@ namespace LHCEnums
                     CSMSL8,
                     CMITL8,
                     CSITL8,
+                    #endregion
+                    #region Sector81
                     //Sector81
                     CMITR8,
                     CSITR8,
@@ -104,8 +119,8 @@ namespace LHCEnums
                     CSMSL1,
                     CMITL1,
                     CSITL1
+                    #endregion
                 }
-
             }
         }
 
