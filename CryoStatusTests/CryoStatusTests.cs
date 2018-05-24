@@ -39,11 +39,24 @@ namespace Cryogenics.Tests
         }
 
         [TestMethod()]
-        public void GetSixtyAmpPCPermitStatusTest()
+        public void GetSixyAmpPcPermitStatus()
         {
             try
             {
-                CryoStatus.GetSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S12);
+                CryoStatus.GetSixtyAmpPCPermitStatus();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod()]
+        public void GetIndividualSixtyAmpPCPermitStatusTest()
+        {
+            try
+            {
+                CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S12);
             }
             catch (Exception ex)
             {
