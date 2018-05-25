@@ -136,6 +136,14 @@ namespace LHCEnums
 
             public enum Cryo
             {
+                CM1L4,
+                CS1L4,
+                CM2L4,
+                CS2L4,
+                CM1R4,
+                CS1R4,
+                CM2R4,
+                CS2R4
             }
         }
 

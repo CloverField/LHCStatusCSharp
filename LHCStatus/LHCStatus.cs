@@ -41,28 +41,36 @@ namespace LHCStatus
                     CheckCryo(i, input);
                     break;
                 case "2":
-                    CheckIndividualPCPermit(i, input);
+                    CheckCryoStatusForIndividualMagnet(i, input);      
                     break;
                 case "3":
-                    Console.WriteLine("What sector do you want to check?");
-                    CheckRFCryo(i, input);
+                    CheckIndividualPCPermit(i, input);
                     break;
                 case "4":
-                    CheckBeamDump(i, input);
+                    CheckIndividualPCPermits(i, input);
                     break;
                 case "5":
-                    CheckIndividualBeamDumpComponent(i, input);
+                    CheckRFCryo(i, input);
                     break;
                 case "6":
-                    CheckEXPMagnets();
+                    CheckIndividualRFStatus(i, input);
                     break;
                 case "7":
-                    CheckIndividualEXPMagnet(i, input);
+                    CheckBeamDump(i, input);
                     break;
                 case "8":
-                    CheckBeamSMPFlags(i, input);
+                    CheckIndividualBeamDumpComponent(i, input);
                     break;
                 case "9":
+                    CheckEXPMagnets();
+                    break;
+                case "10":
+                    CheckIndividualEXPMagnet(i, input);
+                    break;
+                case "11":
+                    CheckBeamSMPFlags(i, input);
+                    break;
+                case "12":
                     CheckIndiviualBeamSMPFlag(i, input);
                     break;
                 default:
@@ -70,6 +78,198 @@ namespace LHCStatus
             }
             Console.WriteLine("Press Enter to exit...");
             Console.ReadLine();
+        }
+
+        private static void CheckIndividualRFStatus(int i, string input)
+        {
+            i = 1;
+            Console.WriteLine("Which cavity do you want to check>");
+            var rfCavity = Enum.GetValues(typeof(Machine.RF.Cryo)).Cast<Machine.RF.Cryo>();
+            rfCavity.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
+            input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    if(CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM1L4))
+                        Console.WriteLine("Everything looks good in for CM1L4.");
+                    else
+                        Console.WriteLine("The Cryo is faulty in CM1L4");
+                    break;
+                case "2":
+                    if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS1L4))
+                        Console.WriteLine("Everything looks good in for CS1L4.");
+                    else
+                        Console.WriteLine("The Cryo is faulty in CS1L4");
+                    break;
+                case "3":
+                    if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM2L4))
+                        Console.WriteLine("Everything looks good in for CM2L4.");
+                    else
+                        Console.WriteLine("The Cryo is faulty in CM2L4");
+                    break;
+                case "4":
+                    if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS2L4))
+                        Console.WriteLine("Everything looks good in for CS2L4.");
+                    else
+                        Console.WriteLine("The Cryo is faulty in CS2L4");
+                    break;
+                case "5":
+                    if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM1R4))
+                        Console.WriteLine("Everything looks good in for CM1R4.");
+                    else
+                        Console.WriteLine("The Cryo is faulty in CM1R4");
+                    break;
+                case "6":
+                    if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS1R4))
+                        Console.WriteLine("Everything looks good in for CS1R4.");
+                    else
+                        Console.WriteLine("The Cryo is faulty in CS1R4");
+                    break;
+                case "7":
+                    if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM2R4))
+                        Console.WriteLine("Everything looks good in for CM2R4.");
+                    else
+                        Console.WriteLine("The Cryo is faulty in CM2R4");
+                    break;
+                case "8":
+                    if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS2R4))
+                        Console.WriteLine("Everything looks good in for CS2R4.");
+                    else
+                        Console.WriteLine("The Cryo is faulty in CS2R4");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static void CheckIndividualPCPermits(int i, string input)
+        {
+            //TODO: Implement This
+            Console.WriteLine("Which which permit do you want to check?");
+            var permits = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
+            i = 1;
+            permits.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
+            input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S12))
+                        Console.WriteLine("The PC permit looks good.");
+                    else
+                        Console.WriteLine("The PC Permit is false.");
+                    break;
+                case "2":
+                    if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S23))
+                        Console.WriteLine("The PC permit looks good.");
+                    else
+                        Console.WriteLine("The PC Permit is false.");
+                    break;
+                case "3":
+                    if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S34))
+                        Console.WriteLine("The PC permit looks good.");
+                    else
+                        Console.WriteLine("The PC Permit is false.");
+                    break;
+                case "4":
+                    if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S45))
+                        Console.WriteLine("The PC permit looks good.");
+                    else
+                        Console.WriteLine("The PC Permit is false.");
+                    break;
+                case "5":
+                    if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S56))
+                        Console.WriteLine("The PC permit looks good.");
+                    else
+                        Console.WriteLine("The PC Permit is false.");
+                    break;
+                case "6":
+                    if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S67))
+                        Console.WriteLine("The PC permit looks good.");
+                    else
+                        Console.WriteLine("The PC Permit is false.");
+                    break;
+                case "7":
+                    if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S78))
+                        Console.WriteLine("The PC permit looks good.");
+                    else
+                        Console.WriteLine("The PC Permit is false.");
+                    break;
+                case "8":
+                    if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S81))
+                        Console.WriteLine("The PC permit looks good.");
+                    else
+                        Console.WriteLine("The PC Permit is false.");
+                    break;
+                default:
+                    break;
+            }
+            throw new NotImplementedException();
+        }
+
+        private static void CheckCryoStatusForIndividualMagnet(int i, string input)
+        {
+            Console.WriteLine("Which sector do you want to check?");
+            var sectors = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
+            i = 1;
+            sectors.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
+            input = Console.ReadLine();
+            Machine.Cryo.Sectors sector;
+            if (int.TryParse(input, out int choice))
+                sector = sectors.ToList()[choice - 1];
+            else
+            {
+                Console.WriteLine("Please enter a valid choice.");
+                return;
+            }
+
+            List<Machine.Cryo.Magnets.Magnet> magnets = new List<Machine.Cryo.Magnets.Magnet>();
+
+            switch (sector)
+            {
+                case Machine.Cryo.Sectors.Sector12:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(0,10);
+                    break;
+                case Machine.Cryo.Sectors.Sector23:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(9, 6);
+                    break;
+                case Machine.Cryo.Sectors.Sector34:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(16, 4);
+                    break;
+                case Machine.Cryo.Sectors.Sector45:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(20, 8);
+                    break;
+                case Machine.Cryo.Sectors.Sector56:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(28, 8);
+                    break;
+                case Machine.Cryo.Sectors.Sector67:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(36, 4);
+                    break;
+                case Machine.Cryo.Sectors.Sector78:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(40, 6);
+                    break;
+                case Machine.Cryo.Sectors.Sector81:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(46, 10);
+                    break;
+                default:
+                    break;
+            }
+
+            i = 1;
+            magnets.ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
+            input = Console.ReadLine();
+            Machine.Cryo.Magnets.Magnet magnet;
+            if (int.TryParse(input, out choice))
+                magnet = magnets.ToList()[choice - 1];
+            else
+            {
+                Console.WriteLine("Please enter a valid choice.");
+                return;
+            }
+
+            if (CryoStatus.GetSectorStatusIndividual(sector, magnet))
+                Console.WriteLine("Everything looks good for " + magnet.ToString());
+            else
+                Console.WriteLine("There is a issue with " + magnet.ToString());
         }
 
         private static void CheckIndiviualBeamSMPFlag(int i, string input)
@@ -499,13 +699,13 @@ namespace LHCStatus
             {
                 case "1":
                     if (BeamDumpStatus.GetBeamBeamDumpStatus(Machine.Beam.Beam1))
-                        Console.WriteLine("Everthing looks good for the Beam 1 Beam Dump.");
+                        Console.WriteLine("Everything looks good for the Beam 1 Beam Dump.");
                     else
                         Console.WriteLine("Looks like the Beam 1 Beam Dump is faulty.");
                     break;
                 case "2":
                     if (BeamDumpStatus.GetBeamBeamDumpStatus(Machine.Beam.Beam2))
-                        Console.WriteLine("Everthing looks good for the Beam 2 Beam Dump.");
+                        Console.WriteLine("Everything looks good for the Beam 2 Beam Dump.");
                     else
                         Console.WriteLine("Looks like the Beam 2 Beam Dump is faulty.");
                     break;
@@ -516,6 +716,7 @@ namespace LHCStatus
 
         private static void CheckRFCryo(int i, string input)
         {
+            Console.WriteLine("What sector do you want to check?");
             var rfValues = Enum.GetValues(typeof(Machine.RF.Sectors)).Cast<Machine.RF.Sectors>();
             i = 1;
             rfValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
@@ -524,25 +725,25 @@ namespace LHCStatus
             {
                 case "1":
                     if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector1L4))
-                        Console.WriteLine("Everthing looks good in Sector1L4.");
+                        Console.WriteLine("Everything looks good in Sector1L4.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector1L4.");
                     break;
                 case "2":
                     if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector1R4))
-                        Console.WriteLine("Everthing looks good in Sector1R4.");
+                        Console.WriteLine("Everything looks good in Sector1R4.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector1R4.");
                     break;
                 case "3":
                     if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector2L4))
-                        Console.WriteLine("Everthing looks good in Sector2L4.");
+                        Console.WriteLine("Everything looks good in Sector2L4.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector2L4.");
                     break;
                 case "4":
                     if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector2R4))
-                        Console.WriteLine("Everthing looks good in Sector2R4.");
+                        Console.WriteLine("Everything looks good in Sector2R4.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector2R4.");
                     break;
@@ -624,49 +825,49 @@ namespace LHCStatus
             {
                 case "1":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector12))
-                        Console.WriteLine("Everthing looks good in Sector 12.");
+                        Console.WriteLine("Everything looks good in Sector 12.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector 12.");
                     break;
                 case "2":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector23))
-                        Console.WriteLine("Everthing looks good in Sector 23.");
+                        Console.WriteLine("Everything looks good in Sector 23.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector 23.");
                     break;
                 case "3":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector34))
-                        Console.WriteLine("Everthing looks good in Sector 34.");
+                        Console.WriteLine("Everything looks good in Sector 34.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector 34.");
                     break;
                 case "4":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector45))
-                        Console.WriteLine("Everthing looks good in Sector 45.");
+                        Console.WriteLine("Everything looks good in Sector 45.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector 45.");
                     break;
                 case "5":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector56))
-                        Console.WriteLine("Everthing looks good in Sector 56.");
+                        Console.WriteLine("Everything looks good in Sector 56.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector 56.");
                     break;
                 case "6":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector67))
-                        Console.WriteLine("Everthing looks good in Sector 67.");
+                        Console.WriteLine("Everything looks good in Sector 67.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector 67.");
                     break;
                 case "7":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector78))
-                        Console.WriteLine("Everthing looks good in Sector 78.");
+                        Console.WriteLine("Everything looks good in Sector 78.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector 78.");
                     break;
                 case "8":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector81))
-                        Console.WriteLine("Everthing looks good in Sector 81.");
+                        Console.WriteLine("Everything looks good in Sector 81.");
                     else
                         Console.WriteLine("Looks like Cryo is down in Sector 81.");
                     break;

@@ -76,5 +76,18 @@ namespace Cryogenics.Tests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
+
+        [TestMethod()]
+        public void GetRFStatusIndiviudalTest()
+        {
+            try
+            {
+                CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM1L4);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
     }
 }

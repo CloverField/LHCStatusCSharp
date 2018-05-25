@@ -308,7 +308,6 @@ namespace Cryogenics
                 case Machine.Cryo.Sectors.Sector23:
                     switch (magnet)
                     {
-                        //TODO: Implement Sector23
                         case Machine.Cryo.Magnets.Magnet.CMITR2:
                             if (!GetCryoStatusPageAsync(out Bitmap cmitr2Img))
                                 return false;
@@ -1010,7 +1009,6 @@ namespace Cryogenics
 
         public static bool GetRFStatus(Machine.RF.Sectors rf)
         {
-
             switch (rf)
             {
                 case Machine.RF.Sectors.Sector1L4:
@@ -1035,6 +1033,8 @@ namespace Cryogenics
                         if (imgseconeR == null) return false;
                         List<Color> colors = new List<Color>
                         {
+                            imgseconeR.GetPixel(480,440), //CM1R4
+                            imgseconeR.GetPixel(570,440) //CS1R4
 
                         };
                         return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
@@ -1062,6 +1062,117 @@ namespace Cryogenics
                         {
                             imgsectwoR.GetPixel(670, 440),//CM2R4
                             imgsectwoR.GetPixel(760, 440)//CS2R4
+                        };
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
+                    }
+                default:
+                    break;
+            }
+            return false;
+        }
+
+        //TODO: Implement this
+        public static bool GetRFStatusIndividual(Machine.RF.Cryo cryoFlag)
+        {
+            switch (cryoFlag)
+            {
+                case Machine.RF.Cryo.CM1L4:
+                    if (!GetCryoStatusPageAsync(out Bitmap cm1l4Img))
+                        return false;
+                    else
+                    {
+                        if (cm1l4Img == null) return false;
+                        List<Color> colors = new List<Color>
+                        {
+                            cm1l4Img.GetPixel(100, 440)//CM1L4
+
+                        };
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
+                    }
+                case Machine.RF.Cryo.CS1L4:
+                    if (!GetCryoStatusPageAsync(out Bitmap cs1l4Img))
+                        return false;
+                    else
+                    {
+                        if (cs1l4Img == null) return false;
+                        List<Color> colors = new List<Color>
+                        {
+                            cs1l4Img.GetPixel(188, 440)//CS1L4
+
+                        };
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
+                    }
+                case Machine.RF.Cryo.CM2L4:
+                    if (!GetCryoStatusPageAsync(out Bitmap cm2l4Img))
+                        return false;
+                    else
+                    {
+                        if (cm2l4Img == null) return false;
+                        List<Color> colors = new List<Color>
+                        {
+                            cm2l4Img.GetPixel(290, 440)//CM2L4
+                        };
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
+                    }
+                case Machine.RF.Cryo.CS2L4:
+                    if (!GetCryoStatusPageAsync(out Bitmap cs2l4Img))
+                        return false;
+                    else
+                    {
+                        if (cs2l4Img == null) return false;
+                        List<Color> colors = new List<Color>
+                        {
+                            cs2l4Img.GetPixel(380, 440)//CS2L4
+                        };
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
+                    }
+                case Machine.RF.Cryo.CM1R4:
+                    if (!GetCryoStatusPageAsync(out Bitmap cm1r4Img))
+                        return false;
+                    else
+                    {
+                        if (cm1r4Img == null) return false;
+                        List<Color> colors = new List<Color>
+                        {
+                            cm1r4Img.GetPixel(480,440), //CM1R4
+
+                        };
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
+                    }
+                case Machine.RF.Cryo.CS1R4:
+                    if (!GetCryoStatusPageAsync(out Bitmap cs1r4Img))
+                        return false;
+                    else
+                    {
+                        if (cs1r4Img == null) return false;
+                        List<Color> colors = new List<Color>
+                        {
+                            cs1r4Img.GetPixel(570,440) //CS1R4
+
+                        };
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
+                    }
+                case Machine.RF.Cryo.CM2R4:
+                    if (!GetCryoStatusPageAsync(out Bitmap cm2r4Img))
+                        return false;
+                    else
+                    {
+                        if (cm2r4Img == null) return false;
+                        List<Color> colors = new List<Color>
+                        {
+                            cm2r4Img.GetPixel(670, 440)//CM2R4
+                        };
+                        return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
+                    }
+                case Machine.RF.Cryo.CS2R4:
+                    if (!GetCryoStatusPageAsync(out Bitmap cs2r4Img))
+                        return false;
+                    else
+                    {
+                        if (cs2r4Img == null) return false;
+                        List<Color> colors = new List<Color>
+                        {
+                            cs2r4Img.GetPixel(760, 440)//CS2R4
                         };
                         return !colors.Any(c => c != Color.FromArgb(255, 0, 255, 0));
                     }
