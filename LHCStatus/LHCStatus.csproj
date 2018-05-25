@@ -84,6 +84,10 @@
       <Project>{a27c9d73-b2c6-4c34-8b39-da4b8862642a}</Project>
       <Name>LHCStatusOptions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OCR\OCR.csproj">
+      <Project>{55733d25-20ee-4129-b4fb-9d7a829e3e2b}</Project>
+      <Name>OCR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Page1Status\Page1Status.csproj">
       <Project>{65e96b11-6974-4e50-983b-2c7f90d754cc}</Project>
       <Name>Page1Status</Name>

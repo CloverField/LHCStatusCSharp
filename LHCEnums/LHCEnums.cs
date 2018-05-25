@@ -198,6 +198,20 @@ namespace LHCEnums
                 Stable_Beams
             }
         }
+
+        public class Vistar
+        {
+            public enum Pages
+            {
+                LHC_Configuration,
+                LHC_Coordination,
+                LHC_Cryogenics,
+                LHC_EXP_Magnets,
+                LHC_Luminosity,
+                LHC_Operation,
+                LHC_Page_1,
+            }
+        }
     }
 }
 

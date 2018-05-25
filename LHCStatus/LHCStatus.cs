@@ -10,6 +10,7 @@ using LHCStatusOptions;
 using BeamDump;
 using EXPMagnetStatus;
 using Page1Status;
+using OCR;
 
 namespace LHCStatus
 {
@@ -73,6 +74,9 @@ namespace LHCStatus
                 case "12":
                     CheckIndiviualBeamSMPFlag(i, input);
                     break;
+                case "13":
+                    PerformOCROnVistarPage(i, input);
+                    break;
                 default:
                     break;
             }
@@ -80,10 +84,52 @@ namespace LHCStatus
             Console.ReadLine();
         }
 
+        private static void PerformOCROnVistarPage(int i, string input)
+        {
+            i = 1;
+            Console.WriteLine("Page do you want to check");
+            var vistars = Enum.GetValues(typeof(Machine.Vistar.Pages)).Cast<Machine.Vistar.Pages>();
+            vistars.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString().Replace('_', ' ')));
+            input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Configuration))
+                        Console.WriteLine("Was unable to peform OCR.");
+                    break;
+                case "2":
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Coordination))
+                        Console.WriteLine("Was unable to peform OCR.");
+                    break;
+                case "3":
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Cryogenics))
+                        Console.WriteLine("Was unable to peform OCR.");
+                    break;
+                case "4":
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_EXP_Magnets))
+                        Console.WriteLine("Was unable to peform OCR.");
+                    break;
+                case "5":
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Luminosity))
+                        Console.WriteLine("Was unable to peform OCR.");
+                    break;
+                case "6":
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Operation))
+                        Console.WriteLine("Was unable to peform OCR.");
+                    break;
+                case "7":
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1))
+                        Console.WriteLine("Was unable to peform OCR.");
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private static void CheckIndividualRFStatus(int i, string input)
         {
             i = 1;
-            Console.WriteLine("Which cavity do you want to check>");
+            Console.WriteLine("Which cavity do you want to check?");
             var rfCavity = Enum.GetValues(typeof(Machine.RF.Cryo)).Cast<Machine.RF.Cryo>();
             rfCavity.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
             input = Console.ReadLine();

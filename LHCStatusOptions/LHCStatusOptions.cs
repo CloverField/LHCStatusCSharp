@@ -14,5 +14,6 @@
         public const string EXPMagnetIndivdualStatus = "Individual Experiment Magnet Status";
         public const string Page1BeamStatus = "Page 1 Beam SMP Status";
         public const string Page1BeamSMPStatus = "Page 1 Individual SMP Beam Status";
+        public const string PerformOCROnVistarPage = "Performs OCR on LHC Vistar page";
     }
 }
