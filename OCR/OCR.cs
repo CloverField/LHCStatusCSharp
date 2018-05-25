@@ -26,6 +26,7 @@ namespace OCR
         {
             string webPage = string.Empty;
             Rect rect = new Rect();
+            EngineMode engineMode = EngineMode.Default;
             switch (vistar)
             {
                 case Machine.Vistar.Pages.LHC_Configuration:
@@ -34,11 +35,13 @@ namespace OCR
                     break;
                 case Machine.Vistar.Pages.LHC_Coordination:
                     webPage = "https://vistar-capture.web.cern.ch/vistar-capture/lhccoord.png";
-                    rect = new Rect(0,103,1024,768);
+                    rect = new Rect(0,103,1024,665);
+                    engineMode = EngineMode.TesseractAndCube;
                     break;
                 case Machine.Vistar.Pages.LHC_Cryogenics:
                     webPage = "https://vistar-capture.web.cern.ch/vistar-capture/lhc2.png";
-                    rect = new Rect(2, 27, 1018, 53);
+                    engineMode = EngineMode.TesseractAndCube;
+                    rect = new Rect(0, 0, 1024, 768);
                     break;
                 case Machine.Vistar.Pages.LHC_EXP_Magnets:
                     webPage = "https://vistar-capture.web.cern.ch/vistar-capture/lhcexpmag.png";
@@ -50,6 +53,7 @@ namespace OCR
                     break;
                 case Machine.Vistar.Pages.LHC_Operation:
                     webPage = "https://vistar-capture.web.cern.ch/vistar-capture/lhc3.png";
+                    engineMode = EngineMode.TesseractAndCube;
                     rect = new Rect(0,38,1022,309);
                     break;
                 case Machine.Vistar.Pages.LHC_Page_1_BeamMode:
@@ -70,7 +74,7 @@ namespace OCR
                 return false;
             else
             {
-                using (var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default))
+                using (var engine = new TesseractEngine(tessDataDir, "eng", engineMode))
                 using (var image = Pix.LoadTiffFromMemory(ImageToByte2(bitmap)))
                 using (var page = engine.Process(image,rect,PageSegMode.SingleBlock))
                 {
