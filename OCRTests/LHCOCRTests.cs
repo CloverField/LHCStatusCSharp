@@ -14,7 +14,6 @@ namespace OCR.Tests
         [TestMethod()]
         public void ProcessDataTest()
         {
-
             try
             {
                 LHCOCR.ProcessData(LHCEnums.Machine.Vistar.Pages.LHC_Cryogenics);
