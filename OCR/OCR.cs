@@ -56,7 +56,7 @@ namespace OCR
                     engineMode = EngineMode.TesseractAndCube;
                     rect = new Rect(0,38,1022,309);
                     break;
-                case Machine.Vistar.Pages.LHC_Page_1_BeamMode:
+                case Machine.Vistar.Pages.LHC_Page_1_Beam_Mode:
                     webPage = "https://vistar-capture.web.cern.ch/vistar-capture/lhc1.png";
                     rect = new Rect(3, 36, 1017, 52);
                     break;

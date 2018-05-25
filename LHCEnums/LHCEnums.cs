@@ -209,7 +209,7 @@ namespace LHCEnums
                 LHC_EXP_Magnets,
                 LHC_Luminosity,
                 LHC_Operation,
-                LHC_Page_1_BeamMode,
+                LHC_Page_1_Beam_Mode,
                 LHC_Page_1_Comments
             }
         }

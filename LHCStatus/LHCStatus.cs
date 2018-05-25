@@ -118,7 +118,7 @@ namespace LHCStatus
                         Console.WriteLine("Was unable to peform OCR.");
                     break;
                 case "7":
-                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_BeamMode))
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Beam_Mode))
                         Console.WriteLine("Was unable to peform OCR.");
                     break;
                 case "8":
@@ -318,7 +318,7 @@ namespace LHCStatus
             if (CryoStatus.GetSectorStatusIndividual(sector, magnet))
                 Console.WriteLine("Everything looks good for " + magnet.ToString());
             else
-                Console.WriteLine("There is a issue with " + magnet.ToString());
+                Console.WriteLine("Cryo is down for " + magnet.ToString());
         }
 
         private static void CheckIndiviualBeamSMPFlag(string input, int i = 1)
