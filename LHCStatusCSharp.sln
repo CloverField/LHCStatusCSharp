@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeamDumpStatusTests", "Beam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Page1StatusTests", "Page1StatusTests\Page1StatusTests.csproj", "{BD4E6E68-87F4-48C1-A836-023EC6F5D9AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR", "OCR\OCR.csproj", "{55733D25-20EE-4129-B4FB-9D7A829E3E2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{BD4E6E68-87F4-48C1-A836-023EC6F5D9AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD4E6E68-87F4-48C1-A836-023EC6F5D9AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD4E6E68-87F4-48C1-A836-023EC6F5D9AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55733D25-20EE-4129-B4FB-9D7A829E3E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55733D25-20EE-4129-B4FB-9D7A829E3E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55733D25-20EE-4129-B4FB-9D7A829E3E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55733D25-20EE-4129-B4FB-9D7A829E3E2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
