@@ -118,7 +118,11 @@ namespace LHCStatus
                         Console.WriteLine("Was unable to peform OCR.");
                     break;
                 case "7":
-                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1))
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_BeamMode))
+                        Console.WriteLine("Was unable to peform OCR.");
+                    break;
+                case "8":
+                    if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Comments))
                         Console.WriteLine("Was unable to peform OCR.");
                     break;
                 default:
