@@ -60,9 +60,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
       <Project>{215ac5fa-99e3-4948-931a-ca13206e8846}</Project>
       <Name>LHCEnums</Name>
@@ -71,6 +68,9 @@
       <Project>{55733D25-20EE-4129-B4FB-9D7A829E3E2B}</Project>
       <Name>OCR</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
