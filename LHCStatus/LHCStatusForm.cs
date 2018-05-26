@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LHCStatusOptions;
+using LHCStatusFunctions;
 
 namespace LHCStatus
 {
@@ -55,7 +51,52 @@ namespace LHCStatus
                 .Select(f => f.GetValue(null))
                 .ToList();
             Button button = sender as Button;
-            var i = LHCStatusOptions.FindIndex(f => f.ToString() == button.Name);
+            var input = (LHCStatusOptions.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+
+            switch (input)
+            {
+                case "1":
+                    Functions.CheckCryo(input);
+                    break;
+                case "2":
+                    Functions.CheckCryoStatusForIndividualMagnet(input);
+                    break;
+                case "3":
+                    Functions.CheckIndividualPCPermit(input);
+                    break;
+                case "4":
+                    Functions.CheckIndividualPCPermits(input);
+                    break;
+                case "5":
+                    Functions.CheckRFCryo(input);
+                    break;
+                case "6":
+                    Functions.CheckIndividualRFStatus(input);
+                    break;
+                case "7":
+                    Functions.CheckBeamDump(input);
+                    break;
+                case "8":
+                    Functions.CheckIndividualBeamDumpComponent(input);
+                    break;
+                case "9":
+                    Functions.CheckEXPMagnets();
+                    break;
+                case "10":
+                    Functions.CheckIndividualEXPMagnet(input);
+                    break;
+                case "11":
+                    Functions.CheckBeamSMPFlags(input);
+                    break;
+                case "12":
+                    Functions.CheckIndiviualBeamSMPFlag(input);
+                    break;
+                case "13":
+                    Functions.PerformOCROnVistarPage(input);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

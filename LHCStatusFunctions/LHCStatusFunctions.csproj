@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EB4A745B-2420-4E40-B353-8DB67D44C2E7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LHCStatusFunctions</RootNamespace>
+    <AssemblyName>LHCStatusFunctions</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Functions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BeamDumpStatus\BeamDumpStatus.csproj">
+      <Project>{56AEEC69-63E4-4924-9ECE-0BD7A33A186D}</Project>
+      <Name>BeamDumpStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CryoStatus\CryoStatus.csproj">
+      <Project>{B1385B60-42A8-45A5-8444-6DBB0362C765}</Project>
+      <Name>CryoStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EXPMagnetStatus\EXPMagnetStatus.csproj">
+      <Project>{D2EFCFB7-3B80-46C3-9B72-4259BE587B99}</Project>
+      <Name>EXPMagnetStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LHCEnums\LHCEnums.csproj">
+      <Project>{215AC5FA-99E3-4948-931A-CA13206E8846}</Project>
+      <Name>LHCEnums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OCR\OCR.csproj">
+      <Project>{55733D25-20EE-4129-B4FB-9D7A829E3E2B}</Project>
+      <Name>OCR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Page1Status\Page1Status.csproj">
+      <Project>{65E96B11-6974-4E50-983B-2C7F90D754CC}</Project>
+      <Name>Page1Status</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

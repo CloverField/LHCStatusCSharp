@@ -101,6 +101,10 @@
       <Project>{215ac5fa-99e3-4948-931a-ca13206e8846}</Project>
       <Name>LHCEnums</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LHCStatusFunctions\LHCStatusFunctions.csproj">
+      <Project>{eb4a745b-2420-4e40-b353-8db67d44c2e7}</Project>
+      <Name>LHCStatusFunctions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LHCStatusOptions\LHCStatusOptions.csproj">
       <Project>{a27c9d73-b2c6-4c34-8b39-da4b8862642a}</Project>
       <Name>LHCStatusOptions</Name>

@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR", "OCR\OCR.csproj", "{5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCRTests", "OCRTests\OCRTests.csproj", "{1014DAA2-B1C2-4E85-9C98-79C3173817EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LHCStatusFunctions", "LHCStatusFunctions\LHCStatusFunctions.csproj", "{EB4A745B-2420-4E40-B353-8DB67D44C2E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{1014DAA2-B1C2-4E85-9C98-79C3173817EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1014DAA2-B1C2-4E85-9C98-79C3173817EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1014DAA2-B1C2-4E85-9C98-79C3173817EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB4A745B-2420-4E40-B353-8DB67D44C2E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB4A745B-2420-4E40-B353-8DB67D44C2E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB4A745B-2420-4E40-B353-8DB67D44C2E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB4A745B-2420-4E40-B353-8DB67D44C2E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
