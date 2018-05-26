@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using LHCStatusOptions;
 using LHCStatusFunctions;
 using LHCEnums;
+using Cryogenics;
+using System.Threading.Tasks;
 
 namespace LHCStatus
 {
@@ -27,6 +29,12 @@ namespace LHCStatus
             SystemCERNDateLabel.Text = String.Format("Current System Date: {0}\nCurrent CERN Date: {1}\n",
                 systemTime.ToLongDateString(), cernTime.ToLongDateString());
 
+            Reset();
+        }
+
+        private void Reset()
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
             var LHCStatusOptions = typeof(StatusOptions)
                 .GetFields()
                 .Select(f => f.GetValue(null))
@@ -66,8 +74,24 @@ namespace LHCStatus
             var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>().ToList();
             Button button = sender as Button;
             var input = (cryoValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
-            Functions.CheckCryo(input);
-            throw new NotImplementedException();
+            var task = Task<bool>.Factory.StartNew(() => {
+                return CryoStatus.GetSectorStatus(cryoValues[int.Parse(input) - 1]);
+                });
+            if (!task.Wait(3000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("Cryo Status is good for {0}.", cryoValues[int.Parse(input) - 1]));
+            else
+                MessageBox.Show(String.Format("Cryo is down for {0}.", cryoValues[int.Parse(input) - 1]));
+
+            Reset();
         }
 
         protected void Button_Click(object sender, EventArgs e)
