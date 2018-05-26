@@ -30,6 +30,7 @@
         {
             this.SystemCERNTimeLabel = new System.Windows.Forms.Label();
             this.SystemCERNDateLabel = new System.Windows.Forms.Label();
+            this.LHCButtonTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // SystemCERNTimeLabel
@@ -50,11 +51,27 @@
             this.SystemCERNDateLabel.TabIndex = 1;
             this.SystemCERNDateLabel.Text = "SystemCERNDateLabel";
             // 
+            // LHCButtonTableLayoutPanel
+            // 
+            this.LHCButtonTableLayoutPanel.AutoSize = true;
+            this.LHCButtonTableLayoutPanel.ColumnCount = 2;
+            this.LHCButtonTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.LHCButtonTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.LHCButtonTableLayoutPanel.Location = new System.Drawing.Point(15, 91);
+            this.LHCButtonTableLayoutPanel.Name = "LHCButtonTableLayoutPanel";
+            this.LHCButtonTableLayoutPanel.RowCount = 2;
+            this.LHCButtonTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.LHCButtonTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.LHCButtonTableLayoutPanel.Size = new System.Drawing.Size(200, 100);
+            this.LHCButtonTableLayoutPanel.TabIndex = 2;
+            // 
             // LHCStatusForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.LHCButtonTableLayoutPanel);
             this.Controls.Add(this.SystemCERNDateLabel);
             this.Controls.Add(this.SystemCERNTimeLabel);
             this.Name = "LHCStatusForm";
@@ -69,5 +86,6 @@
 
         private System.Windows.Forms.Label SystemCERNTimeLabel;
         private System.Windows.Forms.Label SystemCERNDateLabel;
+        private System.Windows.Forms.TableLayoutPanel LHCButtonTableLayoutPanel;
     }
 }

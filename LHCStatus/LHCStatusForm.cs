@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LHCStatusOptions;
 
 namespace LHCStatus
 {
@@ -28,6 +29,33 @@ namespace LHCStatus
 
             SystemCERNDateLabel.Text = String.Format("Current System Date: {0}\nCurrent CERN Date: {1}\n",
                 systemTime.ToLongDateString(), cernTime.ToLongDateString());
+
+            var LHCStatusOptions = typeof(StatusOptions)
+                .GetFields()
+                .Select(f => f.GetValue(null))
+                .ToList();
+
+            for (int i = 0; i < LHCStatusOptions.Count; i++)
+            {
+                var b = new Button()
+                {
+                    Name = LHCStatusOptions[i].ToString(),
+                    Text = LHCStatusOptions[i].ToString(),
+                    AutoSize = true
+                };
+                b.Click += Button_Click;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+        }
+
+        protected void Button_Click(object sender, EventArgs e)
+        {
+            var LHCStatusOptions = typeof(StatusOptions)
+                .GetFields()
+                .Select(f => f.GetValue(null))
+                .ToList();
+            Button button = sender as Button;
+            var i = LHCStatusOptions.FindIndex(f => f.ToString() == button.Name);
         }
     }
 }
