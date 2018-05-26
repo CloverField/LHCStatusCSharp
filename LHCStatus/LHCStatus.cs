@@ -22,15 +22,7 @@ namespace LHCStatus
         {
             Application.EnableVisualStyles();
             Application.Run(new LHCStatusForm());
-            var systemTime = DateTime.Now;
-            var cernTime = TimeZoneInfo.ConvertTime(DateTime.Now, 
-                TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time"));
-
-            Console.WriteLine("Current System Time: {0}\nCurrent CERN Time: {1}\n",
-                systemTime.ToLongTimeString(), cernTime.ToLongTimeString());
-
-            Console.WriteLine("Current System Date: {0}\nCurrent CERN Date: {1}\n",
-                systemTime.ToLongDateString(), cernTime.ToLongDateString());
+            
 
             Console.WriteLine("What do you want to Check?");
             var LHCStatusOptions = typeof(StatusOptions)
