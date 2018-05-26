@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using LHCStatusOptions;
 using LHCStatusFunctions;
+using LHCEnums;
 
 namespace LHCStatus
 {
@@ -44,6 +45,31 @@ namespace LHCStatus
             }
         }
 
+        private void CheckCryoSelected(string input)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
+            foreach (var value in cryoValues)
+            {
+                var b = new Button()
+                {
+                    Name = value.ToString(),
+                    Text = value.ToString()
+                };
+                b.Click += CryoButtonClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+        }
+
+        private void CryoButtonClick(object sender, EventArgs e)
+        {
+            var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>().ToList();
+            Button button = sender as Button;
+            var input = (cryoValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            Functions.CheckCryo(input);
+            throw new NotImplementedException();
+        }
+
         protected void Button_Click(object sender, EventArgs e)
         {
             var LHCStatusOptions = typeof(StatusOptions)
@@ -56,7 +82,7 @@ namespace LHCStatus
             switch (input)
             {
                 case "1":
-                    Functions.CheckCryo(input);
+                    CheckCryoSelected(input);
                     break;
                 case "2":
                     Functions.CheckCryoStatusForIndividualMagnet(input);

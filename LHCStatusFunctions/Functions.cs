@@ -812,11 +812,11 @@ namespace LHCStatusFunctions
 
         public static void CheckCryo(string input, int i = 1)
         {
-            Console.WriteLine("What sector do you want to check?");
-            var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
-            i = 1;
-            cryoValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
+            //Console.WriteLine("What sector do you want to check?");
+            //var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
+            //i = 1;
+            //cryoValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
+            //input = Console.ReadLine();
             switch (input)
             {
                 case "1":
