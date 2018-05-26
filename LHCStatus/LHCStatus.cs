@@ -11,13 +11,17 @@ using BeamDump;
 using EXPMagnetStatus;
 using Page1Status;
 using OCR;
+using System.Windows.Forms;
 
 namespace LHCStatus
 {
     class LHCStatus
     {
+        [STAThread]
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.Run(new LHCStatusForm());
             var systemTime = DateTime.Now;
             var cernTime = TimeZoneInfo.ConvertTime(DateTime.Now, 
                 TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time"));
