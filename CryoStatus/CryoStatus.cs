@@ -1071,7 +1071,6 @@ namespace Cryogenics
             return false;
         }
 
-        //TODO: Implement this
         public static bool GetRFStatusIndividual(Machine.RF.Cryo cryoFlag)
         {
             switch (cryoFlag)

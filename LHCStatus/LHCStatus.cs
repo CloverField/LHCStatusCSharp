@@ -35,47 +35,47 @@ namespace LHCStatus
                 .ToList();
             var i = 1;
             LHCStatusOptions.ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            var input = Console.ReadLine().ToUpper();
+            var input = Console.ReadLine();
             switch (input)
             {
                 case "1":
-                    CheckCryo(i, input);
+                    CheckCryo(input);
                     break;
                 case "2":
-                    CheckCryoStatusForIndividualMagnet(i, input);      
+                    CheckCryoStatusForIndividualMagnet(input);      
                     break;
                 case "3":
-                    CheckIndividualPCPermit(i, input);
+                    CheckIndividualPCPermit(input);
                     break;
                 case "4":
-                    CheckIndividualPCPermits(i, input);
+                    CheckIndividualPCPermits(input);
                     break;
                 case "5":
-                    CheckRFCryo(i, input);
+                    CheckRFCryo(input);
                     break;
                 case "6":
-                    CheckIndividualRFStatus(i, input);
+                    CheckIndividualRFStatus(input);
                     break;
                 case "7":
-                    CheckBeamDump(i, input);
+                    CheckBeamDump(input);
                     break;
                 case "8":
-                    CheckIndividualBeamDumpComponent(i, input);
+                    CheckIndividualBeamDumpComponent(input);
                     break;
                 case "9":
                     CheckEXPMagnets();
                     break;
                 case "10":
-                    CheckIndividualEXPMagnet(i, input);
+                    CheckIndividualEXPMagnet(input);
                     break;
                 case "11":
-                    CheckBeamSMPFlags(i, input);
+                    CheckBeamSMPFlags(input);
                     break;
                 case "12":
-                    CheckIndiviualBeamSMPFlag(i, input);
+                    CheckIndiviualBeamSMPFlag(input);
                     break;
                 case "13":
-                    PerformOCROnVistarPage(i, input);
+                    PerformOCROnVistarPage(input);
                     break;
                 default:
                     break;
@@ -84,7 +84,7 @@ namespace LHCStatus
             Console.ReadLine();
         }
 
-        private static void PerformOCROnVistarPage(int i, string input)
+        private static void PerformOCROnVistarPage(string input, int i = 1)
         {
             i = 1;
             Console.WriteLine("Page do you want to check");
@@ -130,7 +130,7 @@ namespace LHCStatus
             }
         }
 
-        private static void CheckIndividualRFStatus(int i, string input)
+        private static void CheckIndividualRFStatus(string input, int i = 1)
         {
             i = 1;
             Console.WriteLine("Which cavity do you want to check?");
@@ -192,9 +192,8 @@ namespace LHCStatus
             }
         }
 
-        private static void CheckIndividualPCPermits(int i, string input)
+        private static void CheckIndividualPCPermits(string input, int i = 1)
         {
-            //TODO: Implement This
             Console.WriteLine("Which which permit do you want to check?");
             var permits = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
             i = 1;
@@ -256,7 +255,7 @@ namespace LHCStatus
             throw new NotImplementedException();
         }
 
-        private static void CheckCryoStatusForIndividualMagnet(int i, string input)
+        private static void CheckCryoStatusForIndividualMagnet(string input, int i = 1)
         {
             Console.WriteLine("Which sector do you want to check?");
             var sectors = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
@@ -322,7 +321,7 @@ namespace LHCStatus
                 Console.WriteLine("There is a issue with " + magnet.ToString());
         }
 
-        private static void CheckIndiviualBeamSMPFlag(int i, string input)
+        private static void CheckIndiviualBeamSMPFlag(string input, int i = 1)
         {
             Console.WriteLine("Which beam do you want to check?");
             var beamValues2 = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
@@ -410,7 +409,7 @@ namespace LHCStatus
             }
         }
 
-        private static void CheckBeamSMPFlags(int i, string input)
+        private static void CheckBeamSMPFlags(string input, int i = 1)
         {
             Console.WriteLine("Which beam do you want to check?");
             var beamValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
@@ -444,7 +443,7 @@ namespace LHCStatus
                 Console.WriteLine("Not all EXP magnets are fucntions corretly");
         }
 
-        private static void CheckIndividualEXPMagnet(int i, string input)
+        private static void CheckIndividualEXPMagnet(string input, int i = 1)
         {
             Console.WriteLine("Which magnet do you want to check?");
             var expMagnetValues = Enum.GetValues(typeof(Machine.EXPMagnets)).Cast<Machine.EXPMagnets>();
@@ -494,7 +493,7 @@ namespace LHCStatus
             }
         }
 
-        private static void CheckIndividualBeamDumpComponent(int i, string input)
+        private static void CheckIndividualBeamDumpComponent(string input, int i = 1)
         {
             Console.WriteLine("Which Beam dump do you want to check?");
             var beamDumpValuesIndividual = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
@@ -738,7 +737,7 @@ namespace LHCStatus
             }
         }
 
-        private static void CheckBeamDump(int i, string input)
+        private static void CheckBeamDump(string input, int i = 1)
         {
             Console.WriteLine("Which Beam dump do you want to check?");
             var beamDumpValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
@@ -764,7 +763,7 @@ namespace LHCStatus
             }
         }
 
-        private static void CheckRFCryo(int i, string input)
+        private static void CheckRFCryo(string input, int i = 1)
         {
             Console.WriteLine("What sector do you want to check?");
             var rfValues = Enum.GetValues(typeof(Machine.RF.Sectors)).Cast<Machine.RF.Sectors>();
@@ -802,7 +801,7 @@ namespace LHCStatus
             }
         }
 
-        private static void CheckIndividualPCPermit(int i, string input)
+        private static void CheckIndividualPCPermit(string input, int i = 1)
         {
             Console.WriteLine("What sector do you want to check?");
             var sectorValues = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
@@ -864,7 +863,7 @@ namespace LHCStatus
             }
         }
 
-        private static void CheckCryo(int i, string input)
+        private static void CheckCryo(string input, int i = 1)
         {
             Console.WriteLine("What sector do you want to check?");
             var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
