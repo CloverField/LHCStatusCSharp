@@ -16,7 +16,12 @@ namespace OCR.Tests
         {
             try
             {
-                LHCOCR.ProcessData(LHCEnums.Machine.Vistar.Pages.LHC_Cryogenics);
+                string result = null;
+                LHCOCR.ProcessData(LHCEnums.Machine.Vistar.Pages.LHC_Cryogenics, out result);
+                if (result != null)
+                    Console.WriteLine(result);
+                else
+                    Assert.Fail("Did not return good data.");
             }
             catch (Exception ex)
             {

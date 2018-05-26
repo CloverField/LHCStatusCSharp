@@ -91,39 +91,56 @@ namespace LHCStatus
             var vistars = Enum.GetValues(typeof(Machine.Vistar.Pages)).Cast<Machine.Vistar.Pages>();
             vistars.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString().Replace('_', ' ')));
             input = Console.ReadLine();
+            string result = null;
             switch (input)
             {
                 case "1":
-                    if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Configuration))
+                    if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Configuration, out result))
                         Console.WriteLine("Was unable to perform OCR.");
+                    else
+                        if (result != null) Console.WriteLine(result);
                     break;
                 case "2":
-                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Coordination))
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Coordination, out result))
                         Console.WriteLine("Was unable to perform OCR.");
+                    else
+                        if (result != null) Console.WriteLine(result);
                     break;
                 case "3":
-                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Cryogenics))
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Cryogenics, out result))
                         Console.WriteLine("Was unable to perform OCR.");
+                    else
+                        if (result != null) Console.WriteLine(result);
                     break;
                 case "4":
-                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_EXP_Magnets))
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_EXP_Magnets, out result))
                         Console.WriteLine("Was unable to perform OCR.");
+                    else
+                        if (result != null) Console.WriteLine(result);
                     break;
                 case "5":
-                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Luminosity))
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Luminosity, out result))
                         Console.WriteLine("Was unable to perform OCR.");
+                    else
+                        if (result != null) Console.WriteLine(result);
                     break;
                 case "6":
-                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Operation))
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Operation, out result))
                         Console.WriteLine("Was unable to perform OCR.");
+                    else
+                        if (result != null) Console.WriteLine(result);
                     break;
                 case "7":
-                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Beam_Mode))
+                    if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Beam_Mode, out result))
                         Console.WriteLine("Was unable to perform OCR.");
+                    else
+                        if (result != null) Console.WriteLine(result);
                     break;
                 case "8":
-                    if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Comments))
+                    if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Comments, out result))
                         Console.WriteLine("Was unable to perform OCR.");
+                    else
+                        if (result != null) Console.WriteLine(result);
                     break;
                 default:
                     break;

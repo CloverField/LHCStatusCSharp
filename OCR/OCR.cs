@@ -22,8 +22,9 @@ namespace OCR
             return true;
         }
 
-        public static bool ProcessData(Machine.Vistar.Pages vistar)
+        public static bool ProcessData(Machine.Vistar.Pages vistar, out string result)
         {
+            result = null;
             string webPage = string.Empty;
             Rect rect = new Rect();
             EngineMode engineMode = EngineMode.Default;
@@ -81,7 +82,7 @@ namespace OCR
                     string text = page.GetText();
                     if (text != string.Empty)
                     {
-                        Console.WriteLine(text);
+                        result = text;
                         return true;
                     }
                 }
