@@ -30,7 +30,20 @@ namespace BeamDump.Tests
         {
             try
             {
-                BeamDumpStatus.GetBeamDumpStatus(Machine.Beam.Beam1, Machine.BeamDump.Components.BeamDumped);
+                BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.BeamDumped);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod()]
+        public void GetBeamDumpStatusIndividualTest()
+        {
+            try
+            {
+                BeamDumpStatus.GetBeamDumpStatusIndividualComponent(Machine.Beam.Beam1, Machine.BeamDump.Components.BeamDumped);
             }
             catch (Exception ex)
             {
