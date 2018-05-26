@@ -30,7 +30,20 @@ namespace Page1Status.Tests
         {
             try
             {
-                PageStatus.GetSMPStatus(Machine.Beam.Beam1,Machine.Page1.SMPFlags.Beam_Presence);
+                PageStatus.GetSMPStatus(Machine.Beam.Beam1, Machine.Page1.SMPFlags.Beam_Presence);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod()]
+        public void GetSMPStatusIndividualTest()
+        {
+            try
+            {
+                PageStatus.GetSMPStatusIndividual(Machine.Beam.Beam1, Machine.Page1.SMPFlags.Link_Status_of_Beam_Permits);
             }
             catch (Exception ex)
             {
