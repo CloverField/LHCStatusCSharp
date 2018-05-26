@@ -160,18 +160,18 @@ namespace LHCEnums
                 BeamDumped,
                 Kicker,
                 BETS,
-                IPOC_U_Beam_Dump_Pane, //The U will be replaced with a - for readablity, however enums dont let you use dashes
+                IPOC_U_Beam_Dump_Pane, //The U will be replaced with a - for readability, however enums don't let you use dashes
                 LASS,
                 RETRIGGER,
                 XPOC,
-                REMOTE_U_Beam_Dump_Pane, //The U will be replaced with a - for readablity, however enums dont let you use dashes
-                ON_U_Beam_Dump_Pane, //The U will be replaced with a - for readablity, however enums dont let you use dashes
-                REMOTE_U_Injection_Pane, //The U will be replaced with a - for readablity, however enums dont let you use dashes
-                ON_U_Injection_Pane, //The U will be replaced with a - for readablity, however enums dont let you use dashes
+                REMOTE_U_Beam_Dump_Pane, //The U will be replaced with a - for readability, however enums don't let you use dashes
+                ON_U_Beam_Dump_Pane, //The U will be replaced with a - for readability, however enums don't let you use dashes
+                REMOTE_U_Injection_Pane, //The U will be replaced with a - for readability, however enums don't let you use dashes
+                ON_U_Injection_Pane, //The U will be replaced with a - for readability, however enums don't let you use dashes
                 TIMING_ON,
                 CONDITIONING,
                 TIMEOUT,
-                IPOC_U_Injection_Pane, //The U will be replaced with a - for readablity, however enums dont let you use dashes
+                IPOC_U_Injection_Pane, //The U will be replaced with a - for readability, however enums don't let you use dashes
                 IQC
             }
         }

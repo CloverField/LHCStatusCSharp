@@ -37,8 +37,8 @@ namespace Page1Status
 							beam1StatusImg.GetPixel(872,686),
 							beam1StatusImg.GetPixel(872,715)
                         };
-                        if (colors[2] == Color.FromArgb(255, 0, 255, 0) && colors[5] == Color.FromArgb(255, 0, 255, 0)) // some weird mode we havent see before
-                            break;
+                        if (colors[2] == Color.FromArgb(255, 0, 255, 0) && colors[5] == Color.FromArgb(255, 0, 255, 0)) // some weird mode we haven't see before
+                            throw new Exception("New weird LHC mode discovered");
                         else if (colors[5] == Color.FromArgb(255, 0, 255, 0)) // if in stable beams remove the setup flag
                             colors.RemoveAt(2);
                         else if (colors[2] == Color.FromArgb(255, 0, 255, 0)) // if in setup remove the stable beams flag
@@ -61,8 +61,8 @@ namespace Page1Status
                             beam2Statusimg.GetPixel(945,686),
                             beam2Statusimg.GetPixel(945,715)
                         };
-                        if (colors[2] == Color.FromArgb(255, 0, 255, 0) && colors[5] == Color.FromArgb(255, 0, 255, 0)) // some weird mode we havent see before
-                            break;
+                        if (colors[2] == Color.FromArgb(255, 0, 255, 0) && colors[5] == Color.FromArgb(255, 0, 255, 0)) // some weird mode we haven't see before
+                            throw new Exception("New weird LHC mode discovered");
                         else if (colors[5] == Color.FromArgb(255, 0, 255, 0)) // if in stable beams remove the setup flag
                             colors.RemoveAt(2);
                         else if (colors[2] == Color.FromArgb(255, 0, 255, 0)) // if in setup remove the stable beams flag

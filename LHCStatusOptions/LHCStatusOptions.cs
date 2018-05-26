@@ -3,7 +3,7 @@
     public class StatusOptions
     {
         public const string CryoStatus = "Cryo Status";
-        public const string CryoStatusIndividual = "Indvidual Cryo Status";
+        public const string CryoStatusIndividual = "Individual Cryo Status";
         public const string PCPermitStatus = "60 Amp PC Permit Status";   
         public const string PCPermitStatusIndividual = "Individual 60 Amp PC Permit Status"; 
         public const string RFStatus = "RF Status";

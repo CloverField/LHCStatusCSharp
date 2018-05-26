@@ -95,35 +95,35 @@ namespace LHCStatus
             {
                 case "1":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Configuration))
-                        Console.WriteLine("Was unable to peform OCR.");
+                        Console.WriteLine("Was unable to perform OCR.");
                     break;
                 case "2":
                     if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Coordination))
-                        Console.WriteLine("Was unable to peform OCR.");
+                        Console.WriteLine("Was unable to perform OCR.");
                     break;
                 case "3":
                     if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Cryogenics))
-                        Console.WriteLine("Was unable to peform OCR.");
+                        Console.WriteLine("Was unable to perform OCR.");
                     break;
                 case "4":
                     if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_EXP_Magnets))
-                        Console.WriteLine("Was unable to peform OCR.");
+                        Console.WriteLine("Was unable to perform OCR.");
                     break;
                 case "5":
                     if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Luminosity))
-                        Console.WriteLine("Was unable to peform OCR.");
+                        Console.WriteLine("Was unable to perform OCR.");
                     break;
                 case "6":
                     if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Operation))
-                        Console.WriteLine("Was unable to peform OCR.");
+                        Console.WriteLine("Was unable to perform OCR.");
                     break;
                 case "7":
                     if(!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Beam_Mode))
-                        Console.WriteLine("Was unable to peform OCR.");
+                        Console.WriteLine("Was unable to perform OCR.");
                     break;
                 case "8":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Comments))
-                        Console.WriteLine("Was unable to peform OCR.");
+                        Console.WriteLine("Was unable to perform OCR.");
                     break;
                 default:
                     break;
@@ -143,49 +143,49 @@ namespace LHCStatus
                     if(CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM1L4))
                         Console.WriteLine("Everything looks good in for CM1L4.");
                     else
-                        Console.WriteLine("The Cryo is faulty in CM1L4");
+                        Console.WriteLine("The Cryo status is faulty in CM1L4");
                     break;
                 case "2":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS1L4))
                         Console.WriteLine("Everything looks good in for CS1L4.");
                     else
-                        Console.WriteLine("The Cryo is faulty in CS1L4");
+                        Console.WriteLine("The Cryo status is faulty in CS1L4");
                     break;
                 case "3":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM2L4))
                         Console.WriteLine("Everything looks good in for CM2L4.");
                     else
-                        Console.WriteLine("The Cryo is faulty in CM2L4");
+                        Console.WriteLine("The Cryo status is faulty in CM2L4");
                     break;
                 case "4":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS2L4))
                         Console.WriteLine("Everything looks good in for CS2L4.");
                     else
-                        Console.WriteLine("The Cryo is faulty in CS2L4");
+                        Console.WriteLine("The Cryo status is faulty in CS2L4");
                     break;
                 case "5":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM1R4))
                         Console.WriteLine("Everything looks good in for CM1R4.");
                     else
-                        Console.WriteLine("The Cryo is faulty in CM1R4");
+                        Console.WriteLine("The Cryo status is faulty in CM1R4");
                     break;
                 case "6":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS1R4))
                         Console.WriteLine("Everything looks good in for CS1R4.");
                     else
-                        Console.WriteLine("The Cryo is faulty in CS1R4");
+                        Console.WriteLine("The Cryo status is faulty in CS1R4");
                     break;
                 case "7":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM2R4))
                         Console.WriteLine("Everything looks good in for CM2R4.");
                     else
-                        Console.WriteLine("The Cryo is faulty in CM2R4");
+                        Console.WriteLine("The Cryo status is faulty in CM2R4");
                     break;
                 case "8":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS2R4))
                         Console.WriteLine("Everything looks good in for CS2R4.");
                     else
-                        Console.WriteLine("The Cryo is faulty in CS2R4");
+                        Console.WriteLine("The Cryo status is faulty in CS2R4");
                     break;
                 default:
                     break;
@@ -194,7 +194,7 @@ namespace LHCStatus
 
         private static void CheckIndividualPCPermits(string input, int i = 1)
         {
-            Console.WriteLine("Which which permit do you want to check?");
+            Console.WriteLine("Which permit do you want to check?");
             var permits = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
             i = 1;
             permits.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
@@ -440,7 +440,7 @@ namespace LHCStatus
             if (MagnetStatus.GetEXPMagnetStatus())
                 Console.WriteLine("All EXP magnets are functioning correctly.");
             else
-                Console.WriteLine("Not all EXP magnets are fucntions corretly");
+                Console.WriteLine("Not all EXP magnets are functioning correctly");
         }
 
         private static void CheckIndividualEXPMagnet(string input, int i = 1)
