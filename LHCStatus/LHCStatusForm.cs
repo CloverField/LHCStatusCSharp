@@ -13,9 +13,6 @@ namespace LHCStatus
 {
     public partial class LHCStatusForm : Form
     {
-        private Machine.Cryo.Sectors? sectorToPass = null;
-        private Machine.Beam? beamToPass = null;
-
         public LHCStatusForm()
         {
             InitializeComponent();
@@ -343,7 +340,6 @@ namespace LHCStatus
             Button button = sender as Button;
             var beams = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
             var input = beams.FindIndex(f => f.ToString() == button.Name);
-            beamToPass = beams[input];
 
             LHCButtonTableLayoutPanel.Controls.Clear();
             var smpFlags = Enum.GetValues(typeof(Machine.Page1.SMPFlags)).Cast<Machine.Page1.SMPFlags>();
@@ -355,7 +351,7 @@ namespace LHCStatus
                     Text = smpFlag.ToString().Replace('_',' '),
                     AutoSize = true
                 };
-                b.Click += SMPFlagClick;
+                b.Click += delegate (object send, EventArgs eventArgs) { SMPFlagClick(send, eventArgs, beams[input]); };
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
@@ -365,7 +361,6 @@ namespace LHCStatus
             Button button = sender as Button;
             var beams = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
             var input = beams.FindIndex(f => f.ToString() == button.Name);
-            beamToPass = beams[input];
 
             LHCButtonTableLayoutPanel.Controls.Clear();
             var components = Enum.GetValues(typeof(Machine.BeamDump.Components)).Cast<Machine.BeamDump.Components>();
@@ -383,7 +378,7 @@ namespace LHCStatus
                     Text = underScoreRemoved,
                     AutoSize = true
                 };
-                b.Click += IndvidualComponentClick;
+                b.Click += delegate (object send, EventArgs eventArgs) { IndvidualComponentClick(send, eventArgs, beams[input]); };
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
@@ -393,7 +388,6 @@ namespace LHCStatus
             Button button = sender as Button;
             var sectors = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>().ToList();
             var input = sectors.FindIndex(f => f.ToString() == button.Name);
-            sectorToPass = sectors[input];
             List<Machine.Cryo.Magnets.Magnet> magnets = new List<Machine.Cryo.Magnets.Magnet>();
 
             switch (sectors[input])
@@ -435,7 +429,7 @@ namespace LHCStatus
                     Text = magnet.ToString(),
                     AutoSize = true
                 };
-                b.Click += IndividualMagnetClick;
+                b.Click += delegate (object send, EventArgs eventArgs) { IndividualMagnetClick(send, eventArgs, sectors[input]); };
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
@@ -468,37 +462,15 @@ namespace LHCStatus
             Reset();
         }
 
-        private void SMPFlagSelected(object sender, EventArgs e)
-        {
-            Button button = sender as Button;
-            var smpFlags = Enum.GetValues(typeof(Machine.Page1.SMPFlags)).Cast<Machine.Page1.SMPFlags>().ToList();
-            var input = (smpFlags.FindIndex(f => f.ToString() == button.Name));
-
-            LHCButtonTableLayoutPanel.Controls.Clear();
-            foreach (var smpflag in smpFlags)
-            {
-                var b = new Button()
-                {
-                    Name = smpflag.ToString(),
-                    Text = smpflag.ToString().Replace('_',' '),
-                    AutoSize = true
-                };
-                b.Click += SMPFlagClick;
-                LHCButtonTableLayoutPanel.Controls.Add(b);
-            }
-        }
-
-        private void SMPFlagClick(object sender, EventArgs e)
+        private void SMPFlagClick(object sender, EventArgs e, Machine.Beam beam)
         {
             Button button = sender as Button;
             var smpFlags = Enum.GetValues(typeof(Machine.Page1.SMPFlags)).Cast<Machine.Page1.SMPFlags>().ToList();
             var input = (smpFlags.FindIndex(f => f.ToString() == button.Name) + 1);
-            if (beamToPass == null)
-                throw new Exception("beamToPass is null, it shouldn't be.");
 
             var task = Task<bool>.Factory.StartNew(() =>
             {
-                return Functions.CheckIndiviualBeamSMPFlag(beamToPass.Value, smpFlags[input - 1]);
+                return Functions.CheckIndiviualBeamSMPFlag(beam, smpFlags[input - 1]);
             });
 
             if (!task.Wait(4000))
@@ -511,25 +483,22 @@ namespace LHCStatus
                 throw task.Exception;
 
             if (task.Result)
-                MessageBox.Show(String.Format("{0} is {1} for {2}", button.Text, task.Result, beamToPass.Value));
+                MessageBox.Show(String.Format("{0} is {1} for {2}", button.Text, task.Result, beam));
             else
-                MessageBox.Show(String.Format("{0} is {1} for {2}", button.Text, task.Result, beamToPass.Value));
+                MessageBox.Show(String.Format("{0} is {1} for {2}", button.Text, task.Result, beam));
 
-            beamToPass = null;
             Reset();
         }
 
-        private void IndvidualComponentClick(object sender, EventArgs e)
+        private void IndvidualComponentClick(object sender, EventArgs e, Machine.Beam beam)
         {
             Button button = sender as Button;
             var components = Enum.GetValues(typeof(Machine.BeamDump.Components)).Cast<Machine.BeamDump.Components>().ToList();
             var input = (components.FindIndex(f => f.ToString() == button.Name) + 1);
-            if (beamToPass == null)
-                throw new Exception("beamToPass is null, it shouldn't be.");
 
             var task = Task<bool>.Factory.StartNew(() =>
             {
-                return Functions.CheckIndividualBeamDumpComponent(beamToPass.Value, components[input - 1]); ;
+                return Functions.CheckIndividualBeamDumpComponent(beam, components[input - 1]); ;
             });
 
             if (!task.Wait(4000))
@@ -542,11 +511,10 @@ namespace LHCStatus
                 throw task.Exception;
 
             if (task.Result)
-                MessageBox.Show(String.Format("{0} is good for beam {1}.", button.Text, beamToPass.Value));
+                MessageBox.Show(String.Format("{0} is good for beam {1}.", button.Text, beam));
             else
-                MessageBox.Show(String.Format("{0} is faulty for beam {1}.", button.Text, beamToPass.Value));
+                MessageBox.Show(String.Format("{0} is faulty for beam {1}.", button.Text, beam));
 
-            beamToPass = null;
             Reset();
         }
 
@@ -606,16 +574,14 @@ namespace LHCStatus
             Reset();
         }
 
-        private void IndividualMagnetClick(object sender, EventArgs e)
+        private void IndividualMagnetClick(object sender, EventArgs e, Machine.Cryo.Sectors sector)
         {
             Button button = sender as Button;
             var magnet = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().Where(m => m.ToString() == button.Name).Single();
-            if (sectorToPass == null)
-                throw new Exception("SectorToPass is null, it shouldn't be.");
 
             var task = Task<bool>.Factory.StartNew(() =>
             {
-                return Functions.CheckCryoStatusForIndividualMagnet(sectorToPass.Value, magnet);
+                return Functions.CheckCryoStatusForIndividualMagnet(sector, magnet);
             });
 
             if (!task.Wait(4000))
@@ -632,7 +598,6 @@ namespace LHCStatus
             else
                 MessageBox.Show(String.Format("Cryo Status is bad for magnet {0}.", magnet));
 
-            sectorToPass = null;
             Reset();
         }
 
