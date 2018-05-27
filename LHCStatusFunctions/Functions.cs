@@ -810,7 +810,7 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckCryo(string input, int i = 1)
+        public static bool CheckCryo(string input, int i = 1)
         {
             //Console.WriteLine("What sector do you want to check?");
             //var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
@@ -821,54 +821,94 @@ namespace LHCStatusFunctions
             {
                 case "1":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector12))
+                    {
                         Console.WriteLine("Everything looks good in Sector 12.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector 12.");
-                    break;
+                        return false;
+                    }
                 case "2":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector23))
+                    {
                         Console.WriteLine("Everything looks good in Sector 23.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector 23.");
-                    break;
+                        return false;
+                    }
                 case "3":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector34))
+                    {
                         Console.WriteLine("Everything looks good in Sector 34.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector 34.");
-                    break;
+                        return false;
+                    }
                 case "4":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector45))
+                    {
                         Console.WriteLine("Everything looks good in Sector 45.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector 45.");
-                    break;
+                        return false;
+                    }
                 case "5":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector56))
+                    {
                         Console.WriteLine("Everything looks good in Sector 56.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector 56.");
-                    break;
+                        return false;
+                    }
                 case "6":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector67))
+                    {
                         Console.WriteLine("Everything looks good in Sector 67.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector 67.");
-                    break;
+                        return false;
+                    }
                 case "7":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector78))
+                    {
                         Console.WriteLine("Everything looks good in Sector 78.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector 78.");
-                    break;
+                        return false;
+                    }
                 case "8":
                     if (CryoStatus.GetSectorStatus(Machine.Cryo.Sectors.Sector81))
+                    {
                         Console.WriteLine("Everything looks good in Sector 81.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector 81.");
-                    break;
+                        return false;
+                    }
                 default:
-                    break;
+                    return false;
             }
         }
     }

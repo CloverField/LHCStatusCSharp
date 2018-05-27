@@ -75,9 +75,10 @@ namespace LHCStatus
             Button button = sender as Button;
             var input = (cryoValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
             var task = Task<bool>.Factory.StartNew(() => {
-                return CryoStatus.GetSectorStatus(cryoValues[int.Parse(input) - 1]);
+                return Functions.CheckCryo(input);
                 });
-            if (!task.Wait(3000))
+
+            if (!task.Wait(10000))
                 throw new Exception("Timed out waiting for task to complete.");
 
             if (task.IsFaulted)
