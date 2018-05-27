@@ -14,7 +14,7 @@ namespace LHCStatus
     public partial class LHCStatusForm : Form
     {
         private Machine.Cryo.Sectors? sectorToPass = null;
-        private Machine.BeamDump.Components? componentToPass = null;
+        private Machine.Beam? beamToPass = null;
 
         public LHCStatusForm()
         {
@@ -306,14 +306,35 @@ namespace LHCStatus
 
         private void BeamSelected(object sender, EventArgs e)
         {
+            Button button = sender as Button;
+            var beams = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
+            var input = beams.FindIndex(f => f.ToString() == button.Name);
+            beamToPass = beams[input];
 
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var components = Enum.GetValues(typeof(Machine.BeamDump.Components)).Cast<Machine.BeamDump.Components>();
+            foreach (var component in components)
+            {
+                var underScoreRemoved = string.Empty;
+                if (component.ToString() != "TIMEOUT")
+                    underScoreRemoved = component.ToString().Replace('_', ' ').Replace('U', '-');
+                else
+                    underScoreRemoved = component.ToString();
+
+                var b = new Button()
+                {
+                    Name = component.ToString(),
+                    Text = underScoreRemoved,
+                    AutoSize = true
+                };
+                b.Click += IndvidualComponentClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
         }
 
         private void SectorSelected(object sender, EventArgs e)
         {
-
             Button button = sender as Button;
-
             var sectors = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>().ToList();
             var input = sectors.FindIndex(f => f.ToString() == button.Name);
             sectorToPass = sectors[input];
@@ -361,7 +382,37 @@ namespace LHCStatus
                 b.Click += IndividualMagnetClick;
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
+        }
 
+        private void IndvidualComponentClick(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            var components = Enum.GetValues(typeof(Machine.BeamDump.Components)).Cast<Machine.BeamDump.Components>().ToList();
+            var input = (components.FindIndex(f => f.ToString() == button.Name) + 1);
+            if (beamToPass == null)
+                throw new Exception("beamToPass is null, it shouldn't be.");
+
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckIndividualBeamDumpComponent(beamToPass.Value, components[input - 1]); ;
+            });
+
+            if (!task.Wait(4000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("{0} is good for beam {1}.", button.Text, beamToPass.Value));
+            else
+                MessageBox.Show(String.Format("{0} is faulty for beam {1}.", button.Text, beamToPass.Value));
+
+            beamToPass = null;
+            Reset();
         }
 
         private void CheckIndvidualRFStatusClick(object sender, EventArgs e)

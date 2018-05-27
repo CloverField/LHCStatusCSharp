@@ -577,247 +577,376 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckIndividualBeamDumpComponent(string input, int i = 1)
+        public static bool CheckIndividualBeamDumpComponent(Machine.Beam beam, Machine.BeamDump.Components component, int i = 1)
         {
-            Console.WriteLine("Which Beam dump do you want to check?");
-            var beamDumpValuesIndividual = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
-            i = 1;
-            beamDumpValuesIndividual.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
-            switch (input)
+            switch (beam)
             {
-                case "1":
-                    Console.WriteLine("Which component do you want to check?");
-                    var beamOneComponents = Enum.GetValues(typeof(Machine.BeamDump.Components)).Cast<Machine.BeamDump.Components>();
-                    i = 1;
-                    foreach (var s in beamOneComponents)
+                case Machine.Beam.Beam1:
+                    switch (component)
                     {
-                        if (s.ToString() != "TIMEOUT")
-                            Console.WriteLine(i++ + "." + s.ToString().Replace('_', ' ').Replace('U', '-'));
-                        else
-                            Console.WriteLine(i++ + "." + s.ToString());
-                    }
-                    input = Console.ReadLine();
-
-                    switch (input)
-                    {
-                        case "1":
+                        case Machine.BeamDump.Components.BeamDumped:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.BeamDumped))
+                            {
                                 Console.WriteLine("Beam 1 has not been dumped.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("Beam 1 has been dumped.");
-                            break;
-                        case "2":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.Kicker:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.Kicker))
+                            {
                                 Console.WriteLine("The kicker is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The kicker is faulty.");
-                            break;
-                        case "3":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.BETS:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.BETS))
+                            {
                                 Console.WriteLine("The BETS is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The BETS is faulty.");
-                            break;
-                        case "4":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.IPOC_U_Beam_Dump_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.IPOC_U_Beam_Dump_Pane))
+                            {
                                 Console.WriteLine("The IPOC in the beam dump pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The IPOC in the beam dump pane is faulty.");
-                            break;
-                        case "5":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.LASS:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.LASS))
+                            {
                                 Console.WriteLine("The LASS is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The LASS is faulty.");
-                            break;
-                        case "6":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.RETRIGGER:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.RETRIGGER))
+                            {
                                 Console.WriteLine("The RETRIGGER is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The RETRIGGER is faulty.");
-                            break;
-                        case "7":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.XPOC:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.XPOC))
+                            {
                                 Console.WriteLine("The XPOC is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The XPOC is faulty.");
-                            break;
-                        case "8":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.REMOTE_U_Beam_Dump_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.REMOTE_U_Beam_Dump_Pane))
+                            {
                                 Console.WriteLine("The REMOTE in the beam dump pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The REMOTE in the beam dump pane is faulty");
-                            break;
-                        case "9":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.ON_U_Beam_Dump_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.ON_U_Beam_Dump_Pane))
+                            {
                                 Console.WriteLine("The ON in the beam dump pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The ON in the beam dump pane is faulty.");
-                            break;
-                        case "10":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.REMOTE_U_Injection_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.REMOTE_U_Injection_Pane))
+                            {
                                 Console.WriteLine("The REMOTE in the injection pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The REMOTE in the injection pane is faulty.");
-                            break;
-                        case "11":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.ON_U_Injection_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.ON_U_Injection_Pane))
+                            {
                                 Console.WriteLine("The ON in the injection pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The ON in the injection pane is faulty.");
-                            break;
-                        case "12":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.TIMING_ON:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.TIMING_ON))
+                            {
                                 Console.WriteLine("The TIMEING ON is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The TIMEING ON is faulty.");
-                            break;
-                        case "13":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.CONDITIONING:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.CONDITIONING))
+                            {
                                 Console.WriteLine("The CONDITIONING is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The CONDITIONING is faulty.");
-                            break;
-                        case "14":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.TIMEOUT:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.TIMEOUT))
+                            {
                                 Console.WriteLine("The TIMEOUT has not expired.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The TIMEOUT has expired.");
-                            break;
-                        case "15":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.IPOC_U_Injection_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.IPOC_U_Injection_Pane))
+                            {
                                 Console.WriteLine("The IPOC in the injection pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The IPOC in the injection pane is faulty.");
-                            break;
-                        case "16":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.IQC:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam1, Machine.BeamDump.Components.IQC))
+                            {
                                 Console.WriteLine("The IQC is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The IQC is faulty.");
-                            break;
+                                return false;
+                            }
                         default:
-                            break;
+                            return false;
                     }
-                    break;
-                case "2":
-                    Console.WriteLine("Which component do you want to check?");
-                    var beamTwoComponents = Enum.GetValues(typeof(Machine.BeamDump.Components)).Cast<Machine.BeamDump.Components>();
-                    i = 1;
-                    foreach (var s in beamTwoComponents)
+                case Machine.Beam.Beam2:
+                    switch (component)
                     {
-                        if (s.ToString() != "TIMEOUT")
-                            Console.WriteLine(i++ + "." + s.ToString().Replace('_', ' ').Replace('U', '-'));
-                        else
-                            Console.WriteLine(i++ + "." + s.ToString());
-                    }
-                    input = Console.ReadLine();
-
-                    switch (input)
-                    {
-                        case "1":
+                        case Machine.BeamDump.Components.BeamDumped:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.BeamDumped))
+                            {
                                 Console.WriteLine("Beam 2 has not been dumped.");
+                                return true;
+                            }
                             else
-                                Console.WriteLine("Beam 2 has been dumped.");
-                            break;
-                        case "2":
+                            {
+                                Console.WriteLine("Beam 1 has been dumped.");
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.Kicker:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.Kicker))
+                            {
                                 Console.WriteLine("The kicker is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The kicker is faulty.");
-                            break;
-                        case "3":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.BETS:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.BETS))
+                            {
                                 Console.WriteLine("The BETS is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The BETS is faulty.");
-                            break;
-                        case "4":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.IPOC_U_Beam_Dump_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.IPOC_U_Beam_Dump_Pane))
+                            {
                                 Console.WriteLine("The IPOC in the beam dump pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The IPOC in the beam dump pane is faulty.");
-                            break;
-                        case "5":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.LASS:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.LASS))
+                            {
                                 Console.WriteLine("The LASS is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The LASS is faulty.");
-                            break;
-                        case "6":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.RETRIGGER:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.RETRIGGER))
+                            {
                                 Console.WriteLine("The RETRIGGER is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The RETRIGGER is faulty.");
-                            break;
-                        case "7":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.XPOC:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.XPOC))
+                            {
                                 Console.WriteLine("The XPOC is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The XPOC is faulty.");
-                            break;
-                        case "8":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.REMOTE_U_Beam_Dump_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.REMOTE_U_Beam_Dump_Pane))
+                            {
                                 Console.WriteLine("The REMOTE in the beam dump pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The REMOTE in the beam dump pane is faulty");
-                            break;
-                        case "9":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.ON_U_Beam_Dump_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.ON_U_Beam_Dump_Pane))
+                            {
                                 Console.WriteLine("The ON in the beam dump pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The ON in the beam dump pane is faulty.");
-                            break;
-                        case "10":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.REMOTE_U_Injection_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.REMOTE_U_Injection_Pane))
+                            {
                                 Console.WriteLine("The REMOTE in the injection pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The REMOTE in the injection pane is faulty.");
-                            break;
-                        case "11":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.ON_U_Injection_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.ON_U_Injection_Pane))
+                            {
                                 Console.WriteLine("The ON in the injection pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The ON in the injection pane is faulty.");
-                            break;
-                        case "12":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.TIMING_ON:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.TIMING_ON))
+                            {
                                 Console.WriteLine("The TIMEING ON is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The TIMEING ON is faulty.");
-                            break;
-                        case "13":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.CONDITIONING:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.CONDITIONING))
+                            {
                                 Console.WriteLine("The CONDITIONING is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The CONDITIONING is faulty.");
-                            break;
-                        case "14":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.TIMEOUT:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.TIMEOUT))
+                            {
                                 Console.WriteLine("The TIMEOUT has not expired.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The TIMEOUT has expired.");
-                            break;
-                        case "15":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.IPOC_U_Injection_Pane:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.IPOC_U_Injection_Pane))
+                            {
                                 Console.WriteLine("The IPOC in the injection pane is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The IPOC in the injection pane is faulty.");
-                            break;
-                        case "16":
+                                return false;
+                            }
+                        case Machine.BeamDump.Components.IQC:
                             if (BeamDumpStatus.GetBeamDumpStatusIndividual(Machine.Beam.Beam2, Machine.BeamDump.Components.IQC))
+                            {
                                 Console.WriteLine("The IQC is good.");
+                                return true;
+                            }
                             else
+                            {
                                 Console.WriteLine("The IQC is faulty.");
-                            break;
+                                return false;
+                            }
                         default:
-                            break;
+                            return false;
                     }
-                    break;
                 default:
-                    break;
+                    return false;
             }
         }
 
