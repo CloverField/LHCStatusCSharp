@@ -684,29 +684,34 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckBeamDump(string input, int i = 1)
+        public static bool CheckBeamDump(string input, int i = 1)
         {
-            Console.WriteLine("Which Beam dump do you want to check?");
-            var beamDumpValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
-            i = 1;
-            beamDumpValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
             switch (input)
             {
                 case "1":
                     if (BeamDumpStatus.GetBeamBeamDumpStatus(Machine.Beam.Beam1))
+                    {
                         Console.WriteLine("Everything looks good for the Beam 1 Beam Dump.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the Beam 1 Beam Dump is faulty.");
-                    break;
+                        return false;
+                    }
                 case "2":
                     if (BeamDumpStatus.GetBeamBeamDumpStatus(Machine.Beam.Beam2))
+                    {
                         Console.WriteLine("Everything looks good for the Beam 2 Beam Dump.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the Beam 2 Beam Dump is faulty.");
-                    break;
+                        return false;
+                    }
                 default:
-                    break;
+                    return false;
             }
         }
 

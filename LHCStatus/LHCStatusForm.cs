@@ -125,7 +125,7 @@ namespace LHCStatus
                     Functions.CheckIndividualRFStatus(input);
                     break;
                 case "7":
-                    Functions.CheckBeamDump(input);
+                    CheckBeamDumpSelected(input);
                     break;
                 case "8":
                     Functions.CheckIndividualBeamDumpComponent(input);
@@ -147,6 +147,22 @@ namespace LHCStatus
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void CheckBeamDumpSelected(string input)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var beamDumpValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
+            foreach (var value in beamDumpValues)
+            {
+                var b = new Button()
+                {
+                    Name = value.ToString(),
+                    Text = value.ToString()
+                };
+                b.Click += CheckBeamDumpClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
 
@@ -181,6 +197,33 @@ namespace LHCStatus
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
+        
+        private void CheckBeamDumpClick(object sender, EventArgs e)
+        {
+            var beamDumpValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
+            Button button = sender as Button;
+            var input = (beamDumpValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckBeamDump(input);
+            });
+
+            if (!task.Wait(10000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("Beam Dump is good for beam {0}.", beamDumpValues[int.Parse(input) - 1]));
+            else
+                MessageBox.Show(String.Format("Beam Dump is faulty for beam {0}.", beamDumpValues[int.Parse(input) - 1]));
+
+            Reset();
+        }
 
         private void CheckRFCryoClick(object sender, EventArgs e)
         {
@@ -205,7 +248,7 @@ namespace LHCStatus
             if (task.Result)
                 MessageBox.Show(String.Format("Cryo is good for RF Sector {0}.", rfValues[int.Parse(input) - 1]));
             else
-                MessageBox.Show(String.Format("Cryo is down for RF Sector {0}", rfValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("Cryo is down for RF Sector {0}.", rfValues[int.Parse(input) - 1]));
 
             Reset();
         }
