@@ -69,50 +69,67 @@ namespace LHCStatus
             switch (input.ToString())
             {
                 case "1":
-                    CheckCryoSelected(input.ToString());
+                    CheckCryoSelected();
                     break;
                 case "2":
-                    CheckCyroStatusForIndividualMagnetSelected(input.ToString());
+                    CheckCyroStatusForIndividualMagnetSelected();
                     break;
                 case "3":
-                    CheckSectorPCPermitSelected(input.ToString());
+                    CheckSectorPCPermitSelected();
                     break;
                 case "4":
-                    CheckIndividualPCPermitsSelected(input.ToString());
+                    CheckIndividualPCPermitsSelected();
                     break;
                 case "5":
-                    CheckRFCryoSelected(input.ToString());
+                    CheckRFCryoSelected();
                     break;
                 case "6":
-                    CheckIndividualRFStatusSelected(input.ToString());
+                    CheckIndividualRFStatusSelected();
                     break;
                 case "7":
-                    CheckBeamDumpSelected(input.ToString());
+                    CheckBeamDumpSelected();
                     break;
                 case "8":
-                    CheckBeamDumpIndividualSelected(input.ToString());
+                    CheckBeamDumpIndividualSelected();
                     break;
                 case "9":
                     CheckEXPMagnetsSelected();
                     break;
                 case "10":
-                    Functions.CheckIndividualEXPMagnet(input.ToString());
+                    CheckIndividualEXPMagnetClicked();
                     break;
                 case "11":
-                    CheckBeamSMPFlagsSelected(input.ToString());
+                    CheckBeamSMPFlagsSelected();
                     break;
                 case "12":
                     Functions.CheckIndiviualBeamSMPFlag(input.ToString());
                     break;
                 case "13":
-                    CheckPerfomOCROnVistarPageSelected(input.ToString());
+                    CheckPerfomOCROnVistarPageSelected();
                     break;
                 default:
                     break;
             }
         }
 
-        private void CheckBeamDumpIndividualSelected(string v)
+        private void CheckIndividualEXPMagnetClicked()
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var expMagnets = Enum.GetValues(typeof(Machine.EXPMagnets)).Cast<Machine.EXPMagnets>();
+            foreach (var expMagnet in expMagnets)
+            {
+                var b = new Button()
+                {
+                    Name = expMagnet.ToString(),
+                    Text = expMagnet.ToString().Replace('_', ' '),
+                    AutoSize = true
+                };
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+            throw new NotImplementedException();
+        }
+
+        private void CheckBeamDumpIndividualSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var beams = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
@@ -129,7 +146,7 @@ namespace LHCStatus
             }
         }
 
-        private void CheckIndividualRFStatusSelected(string v)
+        private void CheckIndividualRFStatusSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var rfCavitys = Enum.GetValues(typeof(Machine.RF.Cryo)).Cast<Machine.RF.Cryo>();
@@ -146,7 +163,7 @@ namespace LHCStatus
             }
         }
 
-        private void CheckIndividualPCPermitsSelected(string input)
+        private void CheckIndividualPCPermitsSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var permits = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
@@ -163,7 +180,7 @@ namespace LHCStatus
             }
         }
 
-        private void CheckCyroStatusForIndividualMagnetSelected(string input)
+        private void CheckCyroStatusForIndividualMagnetSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var sectors = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
@@ -180,7 +197,7 @@ namespace LHCStatus
             }
         }
 
-        private void CheckPerfomOCROnVistarPageSelected(string input)
+        private void CheckPerfomOCROnVistarPageSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var vistars = Enum.GetValues(typeof(Machine.Vistar.Pages)).Cast<Machine.Vistar.Pages>();
@@ -197,7 +214,7 @@ namespace LHCStatus
             }
         }
 
-        private void CheckBeamSMPFlagsSelected(string input)
+        private void CheckBeamSMPFlagsSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var beamValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
@@ -236,7 +253,7 @@ namespace LHCStatus
                 MessageBox.Show("Not all EXP Magnets are running.");
         }
 
-        private void CheckBeamDumpSelected(string input)
+        private void CheckBeamDumpSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var beamDumpValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
@@ -253,7 +270,7 @@ namespace LHCStatus
             }
         }
 
-        private void CheckRFCryoSelected(string input)
+        private void CheckRFCryoSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var rfValues = Enum.GetValues(typeof(Machine.RF.Sectors)).Cast<Machine.RF.Sectors>();
@@ -270,7 +287,7 @@ namespace LHCStatus
             }
         }
 
-        private void CheckSectorPCPermitSelected(string input)
+        private void CheckSectorPCPermitSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var sectorValues = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
@@ -287,7 +304,7 @@ namespace LHCStatus
             }
         }
 
-        private void CheckCryoSelected(string input)
+        private void CheckCryoSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
