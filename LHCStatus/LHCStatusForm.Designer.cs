@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.SystemCERNTimeLabel = new System.Windows.Forms.Label();
             this.SystemCERNDateLabel = new System.Windows.Forms.Label();
             this.LHCButtonTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // SystemCERNTimeLabel
@@ -65,6 +67,10 @@
             this.LHCButtonTableLayoutPanel.Size = new System.Drawing.Size(200, 100);
             this.LHCButtonTableLayoutPanel.TabIndex = 2;
             // 
+            // Timer
+            // 
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
             // LHCStatusForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -76,6 +82,7 @@
             this.Controls.Add(this.SystemCERNTimeLabel);
             this.Name = "LHCStatusForm";
             this.Text = "LHCStatusForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LHCStatusForm_FormClosing);
             this.Load += new System.EventHandler(this.LHCStatusForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -87,5 +94,6 @@
         private System.Windows.Forms.Label SystemCERNTimeLabel;
         private System.Windows.Forms.Label SystemCERNDateLabel;
         private System.Windows.Forms.TableLayoutPanel LHCButtonTableLayoutPanel;
+        private System.Windows.Forms.Timer Timer;
     }
 }

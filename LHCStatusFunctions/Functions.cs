@@ -393,91 +393,75 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckIndiviualBeamSMPFlag(string input, int i = 1)
+        public static bool CheckIndiviualBeamSMPFlag(Machine.Beam beam, Machine.Page1.SMPFlags smpFlag, int i = 1)
         {
-            Console.WriteLine("Which beam do you want to check?");
-            var beamValues2 = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
-            i = 1;
-            beamValues2.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
-            switch (input)
+            switch (beam)
             {
-                case "1":
+                case Machine.Beam.Beam1:
                     Console.WriteLine("Which SMP Flag do you want to check?");
-                    var beam1SmpFlags = Enum.GetValues(typeof(Machine.Page1.SMPFlags)).Cast<Machine.Page1.SMPFlags>();
-                    i = 1;
-                    beam1SmpFlags.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString().Replace('_', ' ')));
-                    input = Console.ReadLine();
                     bool beam1status;
-                    switch (input)
+                    switch (smpFlag)
                     {
-                        case "1":
+                        case Machine.Page1.SMPFlags.Beam_Presence:
                             beam1status = PageStatus.GetSMPStatus(Machine.Beam.Beam1, Machine.Page1.SMPFlags.Beam_Presence);
                             Console.WriteLine("Beam 1 Beam Presence Flag is {0}.", beam1status);
-                            break;
-                        case "2":
+                            return beam1status;
+                        case Machine.Page1.SMPFlags.Global_Beam_Permit:
                             beam1status = PageStatus.GetSMPStatus(Machine.Beam.Beam1, Machine.Page1.SMPFlags.Global_Beam_Permit);
                             Console.WriteLine("Beam 1 Global Beam Permit Flag is {0}.", beam1status);
-                            break;
-                        case "3":
+                            return beam1status;
+                        case Machine.Page1.SMPFlags.Link_Status_of_Beam_Permits:
                             beam1status = PageStatus.GetSMPStatus(Machine.Beam.Beam1, Machine.Page1.SMPFlags.Link_Status_of_Beam_Permits);
                             Console.WriteLine("Beam 1 Link Status of Beam Permits Flag is {0}.", beam1status);
-                            break;
-                        case "4":
+                            return beam1status;
+                        case Machine.Page1.SMPFlags.Moveable_Devices_Allowed_In:
                             beam1status = PageStatus.GetSMPStatus(Machine.Beam.Beam1, Machine.Page1.SMPFlags.Moveable_Devices_Allowed_In);
                             Console.WriteLine("Beam 1 Moveable Devices Allowed In Flag is {0}.", beam1status);
-                            break;
-                        case "5":
+                            return beam1status;
+                        case Machine.Page1.SMPFlags.Setup_Beam:
                             beam1status = PageStatus.GetSMPStatus(Machine.Beam.Beam1, Machine.Page1.SMPFlags.Setup_Beam);
                             Console.WriteLine("Beam 1 Setup Beam Flag is {0}.", beam1status);
-                            break;
-                        case "6":
+                            return beam1status;
+                        case Machine.Page1.SMPFlags.Stable_Beams:
                             beam1status = PageStatus.GetSMPStatus(Machine.Beam.Beam1, Machine.Page1.SMPFlags.Stable_Beams);
                             Console.WriteLine("Beam 1 Stable Beams Flag is {0}.", beam1status);
-                            break;
+                            return beam1status;
                         default:
-                            break;
+                            return false; ;
                     }
-                    break;
-                case "2":
-                    Console.WriteLine("Which SMP Flag do you want to check?");
-                    var beam2SmpFlags = Enum.GetValues(typeof(Machine.Page1.SMPFlags)).Cast<Machine.Page1.SMPFlags>();
-                    i = 1;
-                    beam2SmpFlags.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString().Replace('_', ' ')));
-                    input = Console.ReadLine();
+                case Machine.Beam.Beam2:
                     bool beam2status;
-                    switch (input)
+                    switch (smpFlag)
                     {
-                        case "1":
+                        case Machine.Page1.SMPFlags.Beam_Presence:
                             beam2status = PageStatus.GetSMPStatus(Machine.Beam.Beam2, Machine.Page1.SMPFlags.Beam_Presence);
                             Console.WriteLine("Beam 2 Beam Presence Flag is {0}.", beam2status);
-                            break;
-                        case "2":
+                            return beam2status;
+                        case Machine.Page1.SMPFlags.Global_Beam_Permit:
                             beam2status = PageStatus.GetSMPStatus(Machine.Beam.Beam2, Machine.Page1.SMPFlags.Global_Beam_Permit);
                             Console.WriteLine("Beam 2 Global Beam Permit Flag is {0}.", beam2status);
-                            break;
-                        case "3":
+                            return beam2status; ;
+                        case Machine.Page1.SMPFlags.Link_Status_of_Beam_Permits:
                             beam2status = PageStatus.GetSMPStatus(Machine.Beam.Beam2, Machine.Page1.SMPFlags.Link_Status_of_Beam_Permits);
                             Console.WriteLine("Beam 2 Link Status of Beam Permits Flag is {0}.", beam2status);
-                            break;
-                        case "4":
+                            return beam2status; ;
+                        case Machine.Page1.SMPFlags.Moveable_Devices_Allowed_In:
                             beam2status = PageStatus.GetSMPStatus(Machine.Beam.Beam2, Machine.Page1.SMPFlags.Moveable_Devices_Allowed_In);
                             Console.WriteLine("Beam 2 Moveable Devices Allowed In Flag is {0}.", beam2status);
-                            break;
-                        case "5":
+                            return beam2status; ;
+                        case Machine.Page1.SMPFlags.Setup_Beam:
                             beam2status = PageStatus.GetSMPStatus(Machine.Beam.Beam2, Machine.Page1.SMPFlags.Setup_Beam);
                             Console.WriteLine("Beam 2 Setup Beam Flag is {0}.", beam2status);
-                            break;
-                        case "6":
+                            return beam2status; ;
+                        case Machine.Page1.SMPFlags.Stable_Beams:
                             beam2status = PageStatus.GetSMPStatus(Machine.Beam.Beam2, Machine.Page1.SMPFlags.Stable_Beams);
                             Console.WriteLine("Beam 2 Stable Beams Flag is {0}.", beam2status);
-                            break;
+                            return beam2status;
                         default:
-                            break;
+                            return false;
                     }
-                    break;
                 default:
-                    break;
+                    return false;
             }
         }
 
