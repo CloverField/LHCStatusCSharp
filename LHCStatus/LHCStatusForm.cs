@@ -119,7 +119,7 @@ namespace LHCStatus
                     Functions.CheckIndividualPCPermits(input);
                     break;
                 case "5":
-                    Functions.CheckRFCryo(input);
+                    CheckRFCryoSelected(input);
                     break;
                 case "6":
                     Functions.CheckIndividualRFStatus(input);
@@ -150,6 +150,22 @@ namespace LHCStatus
             }
         }
 
+        private void CheckRFCryoSelected(string input)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var rfValues = Enum.GetValues(typeof(Machine.RF.Sectors)).Cast<Machine.RF.Sectors>();
+            foreach (var value in rfValues)
+            {
+                var b = new Button()
+                {
+                    Name = value.ToString(),
+                    Text = value.ToString()
+                };
+                b.Click += CheckRFCryoClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+        }
+
         private void CheckSectorPCPermitSelected(string input)
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
@@ -164,6 +180,34 @@ namespace LHCStatus
                 b.Click += SectorButtonClick;
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
+        }
+
+        private void CheckRFCryoClick(object sender, EventArgs e)
+        {
+            var rfValues = Enum.GetValues(typeof(Machine.RF.Sectors)).Cast<Machine.RF.Sectors>().ToList();
+            Button button = sender as Button;
+            var input = (rfValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckRFCryo(input);
+            });
+
+            if (!task.Wait(10000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("Cryo is good for RF Sector {0}.", rfValues[int.Parse(input) - 1]));
+            else
+                MessageBox.Show(String.Format("Cryo is down for RF Sector {0}", rfValues[int.Parse(input) - 1]));
+
+            Reset();
         }
 
         private void SectorButtonClick(object sender, EventArgs e)
@@ -187,7 +231,7 @@ namespace LHCStatus
             if (task.Result)
                 MessageBox.Show(String.Format("PC Permits are good for Sector {0}.", sectorValues[int.Parse(input) - 1]));
             else
-                MessageBox.Show(String.Format("PC Permits are good for {0}.", sectorValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("PC Permits are bad for Sector {0}.", sectorValues[int.Parse(input) - 1]));
 
             Reset();
         }

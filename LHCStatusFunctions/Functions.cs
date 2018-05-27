@@ -710,41 +710,61 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckRFCryo(string input, int i = 1)
+        public static bool CheckRFCryo(string input, int i = 1)
         {
             Console.WriteLine("What sector do you want to check?");
             var rfValues = Enum.GetValues(typeof(Machine.RF.Sectors)).Cast<Machine.RF.Sectors>();
             i = 1;
-            rfValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
+            //rfValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
+            //input = Console.ReadLine();
             switch (input)
             {
                 case "1":
                     if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector1L4))
+                    {
                         Console.WriteLine("Everything looks good in Sector1L4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector1L4.");
-                    break;
+                        return false;
+                    }
                 case "2":
                     if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector1R4))
+                    {
                         Console.WriteLine("Everything looks good in Sector1R4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector1R4.");
-                    break;
+                        return false;
+                    }
                 case "3":
                     if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector2L4))
+                    {
                         Console.WriteLine("Everything looks good in Sector2L4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector2L4.");
-                    break;
+                        return false;
+                    }
                 case "4":
                     if (CryoStatus.GetRFStatus(Machine.RF.Sectors.Sector2R4))
+                    {
                         Console.WriteLine("Everything looks good in Sector2R4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like Cryo is down in Sector2R4.");
-                    break;
+                        return false;
+                    }
                 default:
-                    break;
+                    return false;
             }
         }
 
