@@ -382,12 +382,18 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckEXPMagnets()
+        public static bool CheckEXPMagnets()
         {
             if (MagnetStatus.GetEXPMagnetStatus())
+            {
                 Console.WriteLine("All EXP magnets are functioning correctly.");
+                return true;
+            }
             else
+            {
                 Console.WriteLine("Not all EXP magnets are functioning correctly");
+                return false;
+            }
         }
 
         public static void CheckIndividualEXPMagnet(string input, int i = 1)

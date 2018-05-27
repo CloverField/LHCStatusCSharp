@@ -131,7 +131,7 @@ namespace LHCStatus
                     Functions.CheckIndividualBeamDumpComponent(input);
                     break;
                 case "9":
-                    Functions.CheckEXPMagnets();
+                    CheckEXPMagnetsSelected();
                     break;
                 case "10":
                     Functions.CheckIndividualEXPMagnet(input);
@@ -148,6 +148,28 @@ namespace LHCStatus
                 default:
                     break;
             }
+        }
+
+        private void CheckEXPMagnetsSelected()
+        {
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckEXPMagnets();
+            });
+
+            if (!task.Wait(10000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show("All EXP Magnets are running.");
+            else
+                MessageBox.Show("Not all EXP Magnets are running.");
         }
 
         private void CheckBeamDumpSelected(string input)
