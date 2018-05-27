@@ -7,11 +7,13 @@ using LHCStatusFunctions;
 using LHCEnums;
 using Cryogenics;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace LHCStatus
 {
     public partial class LHCStatusForm : Form
     {
+        private Machine.Cryo.Sectors? sector = null;
         public LHCStatusForm()
         {
             InitializeComponent();
@@ -68,7 +70,7 @@ namespace LHCStatus
                     CheckCryoSelected(input);
                     break;
                 case "2":
-                    Functions.CheckCryoStatusForIndividualMagnet(input);
+                    CheckCyroStatusForIndividualMagnetSelected(input);
                     break;
                 case "3":
                     CheckSectorPCPermitSelected(input);
@@ -105,6 +107,23 @@ namespace LHCStatus
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void CheckCyroStatusForIndividualMagnetSelected(string input)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var sectors = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
+            foreach (var sector in sectors)
+            {
+                var b = new Button()
+                {
+                    Name = sector.ToString(),
+                    Text = sector.ToString(),
+                    AutoSize = true
+                };
+                b.Click += SectorSelected;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
 
@@ -232,7 +251,92 @@ namespace LHCStatus
             }
         }
 
-        public void CheckPerfomOCROnVistarPageClick(object sender, EventArgs e)
+        private void SectorSelected(object sender, EventArgs e)
+        {
+
+            Button button = sender as Button;
+
+            var sectors = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>().ToList();
+            var input = sectors.FindIndex(f => f.ToString() == button.Name);
+            sector = sectors[input];
+            List<Machine.Cryo.Magnets.Magnet> magnets = new List<Machine.Cryo.Magnets.Magnet>();
+
+            switch (sectors[input])
+            {
+                case Machine.Cryo.Sectors.Sector12:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(0, 10);
+                    break;
+                case Machine.Cryo.Sectors.Sector23:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(9, 6);
+                    break;
+                case Machine.Cryo.Sectors.Sector34:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(16, 4);
+                    break;
+                case Machine.Cryo.Sectors.Sector45:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(20, 8);
+                    break;
+                case Machine.Cryo.Sectors.Sector56:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(28, 8);
+                    break;
+                case Machine.Cryo.Sectors.Sector67:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(36, 4);
+                    break;
+                case Machine.Cryo.Sectors.Sector78:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(40, 6);
+                    break;
+                case Machine.Cryo.Sectors.Sector81:
+                    magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(46, 10);
+                    break;
+                default:
+                    break;
+            }
+
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            foreach (var magnet in magnets)
+            {
+                var b = new Button()
+                {
+                    Name = magnet.ToString(),
+                    Text = magnet.ToString(),
+                    AutoSize = true
+                };
+                b.Click += IndividualMagnetClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+
+        }
+
+        private void IndividualMagnetClick(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            var magnet = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().Where(m => m.ToString() == button.Name).Single();
+            if (sector == null)
+                throw new Exception("Sector is null, it shouldn't be.");
+
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckCryoStatusForIndividualMagnet(sector.Value, magnet);
+            });
+
+            if (!task.Wait(4000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("Cryo Status is good for magnet {0}.", magnet));
+            else
+                MessageBox.Show(String.Format("Cryo Status is bad for magnet {0}.", magnet));
+
+            sector = null;
+            Reset();
+        }
+
+        private void CheckPerfomOCROnVistarPageClick(object sender, EventArgs e)
         {
             var vistars = Enum.GetValues(typeof(Machine.Vistar.Pages)).Cast<Machine.Vistar.Pages>().ToList();
             Button button = sender as Button;

@@ -277,21 +277,8 @@ namespace LHCStatusFunctions
             throw new NotImplementedException();
         }
 
-        public static void CheckCryoStatusForIndividualMagnet(string input, int i = 1)
+        public static bool CheckCryoStatusForIndividualMagnet(Machine.Cryo.Sectors sector, Machine.Cryo.Magnets.Magnet magnet, int i = 1)
         {
-            Console.WriteLine("Which sector do you want to check?");
-            var sectors = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
-            i = 1;
-            sectors.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
-            Machine.Cryo.Sectors sector;
-            if (int.TryParse(input, out int choice))
-                sector = sectors.ToList()[choice - 1];
-            else
-            {
-                Console.WriteLine("Please enter a valid choice.");
-                return;
-            }
 
             List<Machine.Cryo.Magnets.Magnet> magnets = new List<Machine.Cryo.Magnets.Magnet>();
 
@@ -322,25 +309,19 @@ namespace LHCStatusFunctions
                     magnets = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().ToList().GetRange(46, 10);
                     break;
                 default:
-                    break;
-            }
-
-            i = 1;
-            magnets.ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
-            Machine.Cryo.Magnets.Magnet magnet;
-            if (int.TryParse(input, out choice))
-                magnet = magnets.ToList()[choice - 1];
-            else
-            {
-                Console.WriteLine("Please enter a valid choice.");
-                return;
+                    return false;
             }
 
             if (CryoStatus.GetSectorStatusIndividual(sector, magnet))
+            {
                 Console.WriteLine("Everything looks good for " + magnet.ToString());
+                return true;
+            }
             else
+            {
                 Console.WriteLine("Cryo is down for " + magnet.ToString());
+                return false;
+            }
         }
 
         public static void CheckIndiviualBeamSMPFlag(string input, int i = 1)
