@@ -102,13 +102,30 @@ namespace LHCStatus
                     CheckBeamSMPFlagsSelected();
                     break;
                 case "12":
-                    Functions.CheckIndiviualBeamSMPFlag(input.ToString());
+                    CheckIndividualBeamSMPFlag();
                     break;
                 case "13":
                     CheckPerfomOCROnVistarPageSelected();
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void CheckIndividualBeamSMPFlag()
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var beams = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
+            foreach (var beam in beams)
+            {
+                var b = new Button()
+                {
+                    Name = beam.ToString(),
+                    Text = beam.ToString(),
+                    AutoSize = true
+                };
+                b.Click += BeamSelectedSMPFlag;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
 
@@ -141,7 +158,7 @@ namespace LHCStatus
                     Text = beam.ToString(),
                     AutoSize = true
                 };
-                b.Click += BeamSelected;
+                b.Click += BeamSelectedBeamDump;
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
@@ -321,7 +338,29 @@ namespace LHCStatus
             }
         }
 
-        private void BeamSelected(object sender, EventArgs e)
+        private void BeamSelectedSMPFlag(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            var beams = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
+            var input = beams.FindIndex(f => f.ToString() == button.Name);
+            beamToPass = beams[input];
+
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var smpFlags = Enum.GetValues(typeof(Machine.Page1.SMPFlags)).Cast<Machine.Page1.SMPFlags>();
+            foreach (var smpFlag in smpFlags)
+            {
+                var b = new Button()
+                {
+                    Name = smpFlag.ToString(),
+                    Text = smpFlag.ToString().Replace('_',' '),
+                    AutoSize = true
+                };
+                b.Click += SMPFlagClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+        }
+
+        private void BeamSelectedBeamDump(object sender, EventArgs e)
         {
             Button button = sender as Button;
             var beams = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
@@ -426,6 +465,57 @@ namespace LHCStatus
             else
                 MessageBox.Show(String.Format("The {0} is FLT_Off.", button.Text));
 
+            Reset();
+        }
+
+        private void SMPFlagSelected(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            var smpFlags = Enum.GetValues(typeof(Machine.Page1.SMPFlags)).Cast<Machine.Page1.SMPFlags>().ToList();
+            var input = (smpFlags.FindIndex(f => f.ToString() == button.Name));
+
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            foreach (var smpflag in smpFlags)
+            {
+                var b = new Button()
+                {
+                    Name = smpflag.ToString(),
+                    Text = smpflag.ToString().Replace('_',' '),
+                    AutoSize = true
+                };
+                b.Click += SMPFlagClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+        }
+
+        private void SMPFlagClick(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            var smpFlags = Enum.GetValues(typeof(Machine.Page1.SMPFlags)).Cast<Machine.Page1.SMPFlags>().ToList();
+            var input = (smpFlags.FindIndex(f => f.ToString() == button.Name) + 1);
+            if (beamToPass == null)
+                throw new Exception("beamToPass is null, it shouldn't be.");
+
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckIndiviualBeamSMPFlag(beamToPass.Value, smpFlags[input - 1]);
+            });
+
+            if (!task.Wait(4000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("{0} is {1} for {2}", button.Text, task.Result, beamToPass.Value));
+            else
+                MessageBox.Show(String.Format("{0} is {1} for {2}", button.Text, task.Result, beamToPass.Value));
+
+            beamToPass = null;
             Reset();
         }
 
