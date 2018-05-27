@@ -269,7 +269,6 @@ namespace LHCStatus
                 default:
                     break;
             }
-            throw new NotImplementedException();
         }
 
         private static void CheckCryoStatusForIndividualMagnet(string input, int i = 1)
