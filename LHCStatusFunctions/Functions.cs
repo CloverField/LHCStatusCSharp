@@ -152,65 +152,100 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckIndividualRFStatus(string input, int i = 1)
+        public static bool CheckIndividualRFStatus(string input, int i = 1)
         {
-            i = 1;
-            Console.WriteLine("Which cavity do you want to check?");
-            var rfCavity = Enum.GetValues(typeof(Machine.RF.Cryo)).Cast<Machine.RF.Cryo>();
-            rfCavity.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
             switch (input)
             {
                 case "1":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM1L4))
+                    {
                         Console.WriteLine("Everything looks good in for CM1L4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The Cryo status is faulty in CM1L4");
-                    break;
+                        return false;
+                    }
                 case "2":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS1L4))
+                    {
                         Console.WriteLine("Everything looks good in for CS1L4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The Cryo status is faulty in CS1L4");
-                    break;
+                        return false;
+                    }
                 case "3":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM2L4))
+                    {
                         Console.WriteLine("Everything looks good in for CM2L4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The Cryo status is faulty in CM2L4");
-                    break;
+                        return false;
+                    }
                 case "4":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS2L4))
+                    {
                         Console.WriteLine("Everything looks good in for CS2L4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The Cryo status is faulty in CS2L4");
-                    break;
+                        return false;
+                    }
                 case "5":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM1R4))
+                    {
                         Console.WriteLine("Everything looks good in for CM1R4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The Cryo status is faulty in CM1R4");
-                    break;
+                        return false;
+                    }
                 case "6":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS1R4))
+                    {
                         Console.WriteLine("Everything looks good in for CS1R4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The Cryo status is faulty in CS1R4");
-                    break;
+                        return false;
+                    }
                 case "7":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CM2R4))
+                    {
                         Console.WriteLine("Everything looks good in for CM2R4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The Cryo status is faulty in CM2R4");
-                    break;
+                        return false;
+                    }
                 case "8":
                     if (CryoStatus.GetRFStatusIndividual(Machine.RF.Cryo.CS2R4))
+                    {
                         Console.WriteLine("Everything looks good in for CS2R4.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The Cryo status is faulty in CS2R4");
-                    break;
+                        return false;
+                    }
                 default:
-                    break;
+                    return false;
             }
         }
 

@@ -14,6 +14,8 @@ namespace LHCStatus
     public partial class LHCStatusForm : Form
     {
         private Machine.Cryo.Sectors? sectorToPass = null;
+        private Machine.BeamDump.Components? componentToPass = null;
+
         public LHCStatusForm()
         {
             InitializeComponent();
@@ -82,13 +84,13 @@ namespace LHCStatus
                     CheckRFCryoSelected(input.ToString());
                     break;
                 case "6":
-                    Functions.CheckIndividualRFStatus(input.ToString());
+                    CheckIndividualRFStatusSelected(input.ToString());
                     break;
                 case "7":
                     CheckBeamDumpSelected(input.ToString());
                     break;
                 case "8":
-                    Functions.CheckIndividualBeamDumpComponent(input.ToString());
+                    CheckBeamDumpIndividualSelected(input.ToString());
                     break;
                 case "9":
                     CheckEXPMagnetsSelected();
@@ -107,6 +109,40 @@ namespace LHCStatus
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void CheckBeamDumpIndividualSelected(string v)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var beams = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
+            foreach (var beam in beams)
+            {
+                var b = new Button()
+                {
+                    Name = beam.ToString(),
+                    Text = beam.ToString(),
+                    AutoSize = true
+                };
+                b.Click += BeamSelected;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+        }
+
+        private void CheckIndividualRFStatusSelected(string v)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var rfCavitys = Enum.GetValues(typeof(Machine.RF.Cryo)).Cast<Machine.RF.Cryo>();
+            foreach (var rfCavity in rfCavitys)
+            {
+                var b = new Button()
+                {
+                    Name = rfCavity.ToString(),
+                    Text = rfCavity.ToString(),
+                    AutoSize = true
+                };
+                b.Click += CheckIndvidualRFStatusClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
 
@@ -268,6 +304,11 @@ namespace LHCStatus
             }
         }
 
+        private void BeamSelected(object sender, EventArgs e)
+        {
+
+        }
+
         private void SectorSelected(object sender, EventArgs e)
         {
 
@@ -321,6 +362,34 @@ namespace LHCStatus
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
 
+        }
+
+        private void CheckIndvidualRFStatusClick(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            var rfCavitys = Enum.GetValues(typeof(Machine.RF.Cryo)).Cast<Machine.RF.Cryo>().ToList();
+            var input = (rfCavitys.FindIndex(f => f.ToString() == button.Name) + 1);
+
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckIndividualRFStatus(input.ToString());
+            });
+
+            if (!task.Wait(4000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("Cryo Status is good for RF Cavity {0}", rfCavitys[input - 1]));
+            else
+                MessageBox.Show(String.Format("Cryo Status is bad for RF Cavity {0}", rfCavitys[input - 1]));
+
+            Reset();
         }
 
         private void CheckIndividualPCPermitsClick(object sender, EventArgs e)
