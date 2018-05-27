@@ -214,67 +214,101 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckIndividualPCPermits(string input, int i = 1)
+        public static bool CheckIndividualPCPermits(string input, int i = 1)
         {
-            Console.WriteLine("Which permit do you want to check?");
-            var permits = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
-            i = 1;
-            permits.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
             switch (input)
             {
                 case "1":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S12))
+                    {
                         Console.WriteLine("The PC permit looks good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The PC Permit is false.");
-                    break;
+                        return false;
+                    }
                 case "2":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S23))
+                    {
                         Console.WriteLine("The PC permit looks good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The PC Permit is false.");
-                    break;
+                        return false;
+                    }
                 case "3":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S34))
+                    {
                         Console.WriteLine("The PC permit looks good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The PC Permit is false.");
-                    break;
+                        return false;
+                    }
                 case "4":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S45))
+                    {
                         Console.WriteLine("The PC permit looks good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The PC Permit is false.");
-                    break;
+                        return false;
+                    }
                 case "5":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S56))
+                    {
                         Console.WriteLine("The PC permit looks good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The PC Permit is false.");
-                    break;
+                        return false;
+                    }
                 case "6":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S67))
+                    {
                         Console.WriteLine("The PC permit looks good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The PC Permit is false.");
-                    break;
+                        return false;
+                    }
                 case "7":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S78))
+                    {
                         Console.WriteLine("The PC permit looks good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The PC Permit is false.");
-                    break;
+                        return false;
+                    }
                 case "8":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S81))
+                    {
                         Console.WriteLine("The PC permit looks good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("The PC Permit is false.");
-                    break;
+                        return false;
+                    }
                 default:
-                    break;
+                    return false;
             }
-            throw new NotImplementedException();
         }
 
         public static bool CheckCryoStatusForIndividualMagnet(Machine.Cryo.Sectors sector, Machine.Cryo.Magnets.Magnet magnet, int i = 1)

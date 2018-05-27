@@ -13,7 +13,7 @@ namespace LHCStatus
 {
     public partial class LHCStatusForm : Form
     {
-        private Machine.Cryo.Sectors? sector = null;
+        private Machine.Cryo.Sectors? sectorToPass = null;
         public LHCStatusForm()
         {
             InitializeComponent();
@@ -42,12 +42,12 @@ namespace LHCStatus
                 .Select(f => f.GetValue(null))
                 .ToList();
 
-            for (int i = 0; i < LHCStatusOptions.Count; i++)
+            foreach (var option in LHCStatusOptions)
             {
                 var b = new Button()
                 {
-                    Name = LHCStatusOptions[i].ToString(),
-                    Text = LHCStatusOptions[i].ToString(),
+                    Name = option.ToString(),
+                    Text = option.ToString(),
                     AutoSize = true
                 };
                 b.Click += Button_Click;
@@ -62,51 +62,68 @@ namespace LHCStatus
                 .Select(f => f.GetValue(null))
                 .ToList();
             Button button = sender as Button;
-            var input = (LHCStatusOptions.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var input = (LHCStatusOptions.FindIndex(f => f.ToString() == button.Name) + 1);
 
-            switch (input)
+            switch (input.ToString())
             {
                 case "1":
-                    CheckCryoSelected(input);
+                    CheckCryoSelected(input.ToString());
                     break;
                 case "2":
-                    CheckCyroStatusForIndividualMagnetSelected(input);
+                    CheckCyroStatusForIndividualMagnetSelected(input.ToString());
                     break;
                 case "3":
-                    CheckSectorPCPermitSelected(input);
+                    CheckSectorPCPermitSelected(input.ToString());
                     break;
                 case "4":
-                    Functions.CheckIndividualPCPermits(input);
+                    CheckIndividualPCPermitsSelected(input.ToString());
                     break;
                 case "5":
-                    CheckRFCryoSelected(input);
+                    CheckRFCryoSelected(input.ToString());
                     break;
                 case "6":
-                    Functions.CheckIndividualRFStatus(input);
+                    Functions.CheckIndividualRFStatus(input.ToString());
                     break;
                 case "7":
-                    CheckBeamDumpSelected(input);
+                    CheckBeamDumpSelected(input.ToString());
                     break;
                 case "8":
-                    Functions.CheckIndividualBeamDumpComponent(input);
+                    Functions.CheckIndividualBeamDumpComponent(input.ToString());
                     break;
                 case "9":
                     CheckEXPMagnetsSelected();
                     break;
                 case "10":
-                    Functions.CheckIndividualEXPMagnet(input);
+                    Functions.CheckIndividualEXPMagnet(input.ToString());
                     break;
                 case "11":
-                    CheckBeamSMPFlagsSelected(input);
+                    CheckBeamSMPFlagsSelected(input.ToString());
                     break;
                 case "12":
-                    Functions.CheckIndiviualBeamSMPFlag(input);
+                    Functions.CheckIndiviualBeamSMPFlag(input.ToString());
                     break;
                 case "13":
-                    CheckPerfomOCROnVistarPageSelected(input);
+                    CheckPerfomOCROnVistarPageSelected(input.ToString());
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void CheckIndividualPCPermitsSelected(string input)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var permits = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
+            foreach (var permit in permits)
+            {
+                var b = new Button()
+                {
+                    Name = permit.ToString(),
+                    Text = permit.ToString(),
+                    AutoSize = true
+                };
+                b.Click += CheckIndividualPCPermitsClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
 
@@ -258,7 +275,7 @@ namespace LHCStatus
 
             var sectors = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>().ToList();
             var input = sectors.FindIndex(f => f.ToString() == button.Name);
-            sector = sectors[input];
+            sectorToPass = sectors[input];
             List<Machine.Cryo.Magnets.Magnet> magnets = new List<Machine.Cryo.Magnets.Magnet>();
 
             switch (sectors[input])
@@ -306,16 +323,44 @@ namespace LHCStatus
 
         }
 
+        private void CheckIndividualPCPermitsClick(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            var permits = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>().ToList();
+            var input = (permits.FindIndex(f => f.ToString() == button.Name) + 1);
+
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckIndividualPCPermits(input.ToString());
+            });
+
+            if (!task.Wait(4000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("PCPermit is good is for {0}.", permits[input - 1]));
+            else
+                MessageBox.Show(String.Format("PCPermit is bad is for {0}.", permits[input - 1]));
+
+            Reset();
+        }
+
         private void IndividualMagnetClick(object sender, EventArgs e)
         {
             Button button = sender as Button;
             var magnet = Enum.GetValues(typeof(Machine.Cryo.Magnets.Magnet)).Cast<Machine.Cryo.Magnets.Magnet>().Where(m => m.ToString() == button.Name).Single();
-            if (sector == null)
-                throw new Exception("Sector is null, it shouldn't be.");
+            if (sectorToPass == null)
+                throw new Exception("SectorToPass is null, it shouldn't be.");
 
             var task = Task<bool>.Factory.StartNew(() =>
             {
-                return Functions.CheckCryoStatusForIndividualMagnet(sector.Value, magnet);
+                return Functions.CheckCryoStatusForIndividualMagnet(sectorToPass.Value, magnet);
             });
 
             if (!task.Wait(4000))
@@ -332,7 +377,7 @@ namespace LHCStatus
             else
                 MessageBox.Show(String.Format("Cryo Status is bad for magnet {0}.", magnet));
 
-            sector = null;
+            sectorToPass = null;
             Reset();
         }
 
@@ -340,11 +385,11 @@ namespace LHCStatus
         {
             var vistars = Enum.GetValues(typeof(Machine.Vistar.Pages)).Cast<Machine.Vistar.Pages>().ToList();
             Button button = sender as Button;
-            var input = (vistars.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var input = (vistars.FindIndex(f => f.ToString() == button.Name) + 1);
             string result = null;
             var task = Task<bool>.Factory.StartNew(() =>
             {
-                return Functions.PerformOCROnVistarPage(input, out result);
+                return Functions.PerformOCROnVistarPage(input.ToString(), out result);
             });
 
             if (!task.Wait(10000))
@@ -360,14 +405,14 @@ namespace LHCStatus
             {
                 if (result != null)
                 {
-                    MessageBox.Show(String.Format("Successfully performed OCR on Page {0}.", vistars[int.Parse(input) - 1]).Replace('_', ' '));
+                    MessageBox.Show(String.Format("Successfully performed OCR on Page {0}.", vistars[input - 1]).Replace('_', ' '));
                     MessageBox.Show(result);
                 }
                 else
-                    MessageBox.Show(String.Format("Unable to perform OCR on Page {0}.", vistars[int.Parse(input) - 1]).Replace('_', ' '));
+                    MessageBox.Show(String.Format("Unable to perform OCR on Page {0}.", vistars[input - 1]).Replace('_', ' '));
             }
             else
-                MessageBox.Show(String.Format("Unable to perform OCR on Page {0}.", vistars[int.Parse(input) - 1]).Replace('_', ' '));
+                MessageBox.Show(String.Format("Unable to perform OCR on Page {0}.", vistars[input - 1]).Replace('_', ' '));
 
             Reset();
         }
@@ -376,10 +421,10 @@ namespace LHCStatus
         {
             var beamValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
             Button button = sender as Button;
-            var input = (beamValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var input = (beamValues.FindIndex(f => f.ToString() == button.Name) + 1);
             var task = Task<bool>.Factory.StartNew(() =>
             {
-                return Functions.CheckBeamSMPFlags(input);
+                return Functions.CheckBeamSMPFlags(input.ToString());
             });
 
             if (!task.Wait(4000))
@@ -392,9 +437,9 @@ namespace LHCStatus
                 throw task.Exception;
 
             if (task.Result)
-                MessageBox.Show(String.Format("SMP Flags are good for beam {0}.", beamValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("SMP Flags are good for beam {0}.", beamValues[input - 1]));
             else
-                MessageBox.Show(String.Format("SMP Flags are bad for beam {0}.", beamValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("SMP Flags are bad for beam {0}.", beamValues[input - 1]));
 
             Reset();
         }
@@ -403,10 +448,10 @@ namespace LHCStatus
         {
             var beamDumpValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
             Button button = sender as Button;
-            var input = (beamDumpValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var input = (beamDumpValues.FindIndex(f => f.ToString() == button.Name) + 1);
             var task = Task<bool>.Factory.StartNew(() =>
             {
-                return Functions.CheckBeamDump(input);
+                return Functions.CheckBeamDump(input.ToString());
             });
 
             if (!task.Wait(4000))
@@ -419,9 +464,9 @@ namespace LHCStatus
                 throw task.Exception;
 
             if (task.Result)
-                MessageBox.Show(String.Format("Beam Dump is good for beam {0}.", beamDumpValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("Beam Dump is good for beam {0}.", beamDumpValues[input - 1]));
             else
-                MessageBox.Show(String.Format("Beam Dump is faulty for beam {0}.", beamDumpValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("Beam Dump is faulty for beam {0}.", beamDumpValues[input - 1]));
 
             Reset();
         }
@@ -430,11 +475,11 @@ namespace LHCStatus
         {
             var rfValues = Enum.GetValues(typeof(Machine.RF.Sectors)).Cast<Machine.RF.Sectors>().ToList();
             Button button = sender as Button;
-            var input = (rfValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var input = (rfValues.FindIndex(f => f.ToString() == button.Name) + 1);
 
             var task = Task<bool>.Factory.StartNew(() =>
             {
-                return Functions.CheckRFCryo(input);
+                return Functions.CheckRFCryo(input.ToString());
             });
 
             if (!task.Wait(4000))
@@ -447,9 +492,9 @@ namespace LHCStatus
                 throw task.Exception;
 
             if (task.Result)
-                MessageBox.Show(String.Format("Cryo is good for RF Sector {0}.", rfValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("Cryo is good for RF Sector {0}.", rfValues[input- 1]));
             else
-                MessageBox.Show(String.Format("Cryo is down for RF Sector {0}.", rfValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("Cryo is down for RF Sector {0}.", rfValues[input - 1]));
 
             Reset();
         }
@@ -458,9 +503,9 @@ namespace LHCStatus
         {
             var sectorValues = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>().ToList();
             Button button = sender as Button;
-            var input = (sectorValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var input = (sectorValues.FindIndex(f => f.ToString() == button.Name) + 1);
             var task = Task<bool>.Factory.StartNew(() => {
-                return Functions.CheckSectorPCPermit(input);
+                return Functions.CheckSectorPCPermit(input.ToString());
             });
 
             if (!task.Wait(4000))
@@ -473,9 +518,9 @@ namespace LHCStatus
                 throw task.Exception;
 
             if (task.Result)
-                MessageBox.Show(String.Format("PC Permits are good for Sector {0}.", sectorValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("PC Permits are good for Sector {0}.", sectorValues[input - 1]));
             else
-                MessageBox.Show(String.Format("PC Permits are bad for Sector {0}.", sectorValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("PC Permits are bad for Sector {0}.", sectorValues[input - 1]));
 
             Reset();
         }
@@ -484,9 +529,9 @@ namespace LHCStatus
         {
             var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>().ToList();
             Button button = sender as Button;
-            var input = (cryoValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var input = (cryoValues.FindIndex(f => f.ToString() == button.Name) + 1);
             var task = Task<bool>.Factory.StartNew(() => {
-                return Functions.CheckCryo(input);
+                return Functions.CheckCryo(input.ToString());
             });
 
             if (!task.Wait(4000))
@@ -499,9 +544,9 @@ namespace LHCStatus
                 throw task.Exception;
 
             if (task.Result)
-                MessageBox.Show(String.Format("Cryo Status is good for {0}.", cryoValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("Cryo Status is good for {0}.", cryoValues[input - 1]));
             else
-                MessageBox.Show(String.Format("Cryo is down for {0}.", cryoValues[int.Parse(input) - 1]));
+                MessageBox.Show(String.Format("Cryo is down for {0}.", cryoValues[input - 1]));
 
             Reset();
         }
