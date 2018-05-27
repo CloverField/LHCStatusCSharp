@@ -78,7 +78,7 @@ namespace LHCStatus
                 return Functions.CheckCryo(input);
                 });
 
-            if (!task.Wait(10000))
+            if (!task.Wait(4000))
                 throw new Exception("Timed out waiting for task to complete.");
 
             if (task.IsFaulted)
@@ -137,7 +137,7 @@ namespace LHCStatus
                     Functions.CheckIndividualEXPMagnet(input);
                     break;
                 case "11":
-                    Functions.CheckBeamSMPFlags(input);
+                    CheckBeamSMPFlagsSelected(input);
                     break;
                 case "12":
                     Functions.CheckIndiviualBeamSMPFlag(input);
@@ -150,6 +150,23 @@ namespace LHCStatus
             }
         }
 
+        private void CheckBeamSMPFlagsSelected(string input)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var beamValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
+            foreach (var value in beamValues)
+            {
+                var b = new Button()
+                {
+                    Name = value.ToString(),
+                    Text = value.ToString()
+                };
+                b.Click += CheckBeamSMPFlagsClick;
+
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+        }
+
         private void CheckEXPMagnetsSelected()
         {
             var task = Task<bool>.Factory.StartNew(() =>
@@ -157,7 +174,7 @@ namespace LHCStatus
                 return Functions.CheckEXPMagnets();
             });
 
-            if (!task.Wait(10000))
+            if (!task.Wait(4000))
                 throw new Exception("Timed out waiting for task to complete.");
 
             if (task.IsFaulted)
@@ -220,6 +237,33 @@ namespace LHCStatus
             }
         }
         
+        private void CheckBeamSMPFlagsClick(object sender, EventArgs e)
+        {
+            var beamValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
+            Button button = sender as Button;
+            var input = (beamValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckBeamSMPFlags(input);
+            });
+
+            if (!task.Wait(4000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("SMP Flags are good for beam {0}.", beamValues[int.Parse(input) - 1]));
+            else
+                MessageBox.Show(String.Format("SMP Flags are bad for beam {0}.", beamValues[int.Parse(input) - 1]));
+
+            Reset();
+        }
+
         private void CheckBeamDumpClick(object sender, EventArgs e)
         {
             var beamDumpValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
@@ -230,7 +274,7 @@ namespace LHCStatus
                 return Functions.CheckBeamDump(input);
             });
 
-            if (!task.Wait(10000))
+            if (!task.Wait(4000))
                 throw new Exception("Timed out waiting for task to complete.");
 
             if (task.IsFaulted)
@@ -258,7 +302,7 @@ namespace LHCStatus
                 return Functions.CheckRFCryo(input);
             });
 
-            if (!task.Wait(10000))
+            if (!task.Wait(4000))
                 throw new Exception("Timed out waiting for task to complete.");
 
             if (task.IsFaulted)
@@ -284,7 +328,7 @@ namespace LHCStatus
                 return Functions.CheckSectorPCPermit(input);
             });
 
-            if (!task.Wait(10000))
+            if (!task.Wait(4000))
                 throw new Exception("Timed out waiting for task to complete.");
 
             if (task.IsFaulted)

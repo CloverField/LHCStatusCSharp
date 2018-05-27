@@ -356,29 +356,35 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckBeamSMPFlags(string input, int i = 1)
+        public static bool CheckBeamSMPFlags(string input, int i = 1)
         {
-            Console.WriteLine("Which beam do you want to check?");
-            var beamValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>();
-            i = 1;
-            beamValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
             switch (input)
             {
                 case "1":
                     if (PageStatus.GetBeamSMPStatus(Machine.Beam.Beam1))
+                    {
                         Console.WriteLine("Beam 1's SMP Status is good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("There is a fault with Beam 1's SMP Status.");
-                    break;
+                        return false;
+                    }
                 case "2":
                     if (PageStatus.GetBeamSMPStatus(Machine.Beam.Beam2))
+                    {
                         Console.WriteLine("Beam 2's SMP Status is good.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("There is a fault with Beam 2's SMP Status.");
-                    break;
+                        return false;
+                    }
+
                 default:
-                    break;
+                    return false;
             }
         }
 
