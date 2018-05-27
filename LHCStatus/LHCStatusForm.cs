@@ -53,48 +53,6 @@ namespace LHCStatus
             }
         }
 
-        private void CheckCryoSelected(string input)
-        {
-            LHCButtonTableLayoutPanel.Controls.Clear();
-            var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
-            foreach (var value in cryoValues)
-            {
-                var b = new Button()
-                {
-                    Name = value.ToString(),
-                    Text = value.ToString()
-                };
-                b.Click += CryoButtonClick;
-                LHCButtonTableLayoutPanel.Controls.Add(b);
-            }
-        }
-
-        private void CryoButtonClick(object sender, EventArgs e)
-        {
-            var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>().ToList();
-            Button button = sender as Button;
-            var input = (cryoValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
-            var task = Task<bool>.Factory.StartNew(() => {
-                return Functions.CheckCryo(input);
-                });
-
-            if (!task.Wait(4000))
-                throw new Exception("Timed out waiting for task to complete.");
-
-            if (task.IsFaulted)
-                throw new Exception("Task failed.");
-
-            if (task.Exception != null)
-                throw task.Exception;
-
-            if (task.Result)
-                MessageBox.Show(String.Format("Cryo Status is good for {0}.", cryoValues[int.Parse(input) - 1]));
-            else
-                MessageBox.Show(String.Format("Cryo is down for {0}.", cryoValues[int.Parse(input) - 1]));
-
-            Reset();
-        }
-
         protected void Button_Click(object sender, EventArgs e)
         {
             var LHCStatusOptions = typeof(StatusOptions)
@@ -143,10 +101,27 @@ namespace LHCStatus
                     Functions.CheckIndiviualBeamSMPFlag(input);
                     break;
                 case "13":
-                    Functions.PerformOCROnVistarPage(input);
+                    CheckPerfomOCROnVistarPageSelected(input);
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void CheckPerfomOCROnVistarPageSelected(string input)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var vistars = Enum.GetValues(typeof(Machine.Vistar.Pages)).Cast<Machine.Vistar.Pages>();
+            foreach (var pages in vistars)
+            {
+                var b = new Button()
+                {
+                    Name = pages.ToString(),
+                    Text = pages.ToString().Replace('_',' '),
+                    AutoSize = true
+                };
+                b.Click += CheckPerfomOCROnVistarPageClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
 
@@ -159,10 +134,10 @@ namespace LHCStatus
                 var b = new Button()
                 {
                     Name = value.ToString(),
-                    Text = value.ToString()
+                    Text = value.ToString(),
+                    AutoSize = true
                 };
                 b.Click += CheckBeamSMPFlagsClick;
-
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
@@ -198,7 +173,8 @@ namespace LHCStatus
                 var b = new Button()
                 {
                     Name = value.ToString(),
-                    Text = value.ToString()
+                    Text = value.ToString(),
+                    AutoSize = true
                 };
                 b.Click += CheckBeamDumpClick;
                 LHCButtonTableLayoutPanel.Controls.Add(b);
@@ -214,7 +190,8 @@ namespace LHCStatus
                 var b = new Button()
                 {
                     Name = value.ToString(),
-                    Text = value.ToString()
+                    Text = value.ToString(),
+                    AutoSize = true
                 };
                 b.Click += CheckRFCryoClick;
                 LHCButtonTableLayoutPanel.Controls.Add(b);
@@ -230,13 +207,67 @@ namespace LHCStatus
                 var b = new Button()
                 {
                     Name = value.ToString(),
-                    Text = value.ToString()
+                    Text = value.ToString(),
+                    AutoSize = true
                 };
                 b.Click += SectorButtonClick;
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
         }
-        
+
+        private void CheckCryoSelected(string input)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
+            foreach (var value in cryoValues)
+            {
+                var b = new Button()
+                {
+                    Name = value.ToString(),
+                    Text = value.ToString(),
+                    AutoSize = true
+                };
+                b.Click += CryoButtonClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+        }
+
+        public void CheckPerfomOCROnVistarPageClick(object sender, EventArgs e)
+        {
+            var vistars = Enum.GetValues(typeof(Machine.Vistar.Pages)).Cast<Machine.Vistar.Pages>().ToList();
+            Button button = sender as Button;
+            var input = (vistars.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            string result = null;
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.PerformOCROnVistarPage(input, out result);
+            });
+
+            if (!task.Wait(10000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+            {
+                if (result != null)
+                {
+                    MessageBox.Show(String.Format("Successfully performed OCR on Page {0}.", vistars[int.Parse(input) - 1]).Replace('_', ' '));
+                    MessageBox.Show(result);
+                }
+                else
+                    MessageBox.Show(String.Format("Unable to perform OCR on Page {0}.", vistars[int.Parse(input) - 1]).Replace('_', ' '));
+            }
+            else
+                MessageBox.Show(String.Format("Unable to perform OCR on Page {0}.", vistars[int.Parse(input) - 1]).Replace('_', ' '));
+
+            Reset();
+        }
+
         private void CheckBeamSMPFlagsClick(object sender, EventArgs e)
         {
             var beamValues = Enum.GetValues(typeof(Machine.Beam)).Cast<Machine.Beam>().ToList();
@@ -341,6 +372,32 @@ namespace LHCStatus
                 MessageBox.Show(String.Format("PC Permits are good for Sector {0}.", sectorValues[int.Parse(input) - 1]));
             else
                 MessageBox.Show(String.Format("PC Permits are bad for Sector {0}.", sectorValues[int.Parse(input) - 1]));
+
+            Reset();
+        }
+
+        private void CryoButtonClick(object sender, EventArgs e)
+        {
+            var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>().ToList();
+            Button button = sender as Button;
+            var input = (cryoValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var task = Task<bool>.Factory.StartNew(() => {
+                return Functions.CheckCryo(input);
+            });
+
+            if (!task.Wait(4000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("Cryo Status is good for {0}.", cryoValues[int.Parse(input) - 1]));
+            else
+                MessageBox.Show(String.Format("Cryo is down for {0}.", cryoValues[int.Parse(input) - 1]));
 
             Reset();
         }

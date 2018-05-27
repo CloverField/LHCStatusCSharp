@@ -14,66 +14,141 @@ namespace LHCStatusFunctions
 {
     public class Functions
     {
-        public static void PerformOCROnVistarPage(string input, int i = 1)
+        public static bool PerformOCROnVistarPage(string input, out string result, int i = 1)
         {
-            i = 1;
-            Console.WriteLine("Page do you want to check");
-            var vistars = Enum.GetValues(typeof(Machine.Vistar.Pages)).Cast<Machine.Vistar.Pages>();
-            vistars.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString().Replace('_', ' ')));
-            input = Console.ReadLine();
-            string result = null;
+            result = null;
             switch (input)
             {
                 case "1":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Configuration, out result))
+                    {
                         Console.WriteLine("Was unable to perform OCR.");
+                        return false;
+                    }
                     else
-                        if (result != null) Console.WriteLine(result);
-                    break;
+                    {
+                        if (result != null)
+                        {
+                            Console.WriteLine(result);
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
                 case "2":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Coordination, out result))
+                    {
                         Console.WriteLine("Was unable to perform OCR.");
+                        return false;
+                    }
                     else
-                        if (result != null) Console.WriteLine(result);
-                    break;
+                    {
+                        if (result != null)
+                        {
+                            Console.WriteLine(result);
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
                 case "3":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Cryogenics, out result))
+                    {
                         Console.WriteLine("Was unable to perform OCR.");
+                        return false;
+                    }
                     else
-                        if (result != null) Console.WriteLine(result);
-                    break;
+                    {
+                        if (result != null)
+                        {
+                            Console.WriteLine(result);
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
                 case "4":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_EXP_Magnets, out result))
+                    {
                         Console.WriteLine("Was unable to perform OCR.");
+                        return false;
+                    }
                     else
-                        if (result != null) Console.WriteLine(result);
-                    break;
+                    {
+                        if (result != null)
+                        {
+                            Console.WriteLine(result);
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
                 case "5":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Luminosity, out result))
+                    {
                         Console.WriteLine("Was unable to perform OCR.");
+                        return false;
+                    }
                     else
-                        if (result != null) Console.WriteLine(result);
-                    break;
+                    {
+                        if (result != null)
+                        {
+                            Console.WriteLine(result);
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
                 case "6":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Operation, out result))
+                    {
                         Console.WriteLine("Was unable to perform OCR.");
+                        return false;
+                    }
                     else
-                        if (result != null) Console.WriteLine(result);
-                    break;
+                    {
+                        if (result != null)
+                        {
+                            Console.WriteLine(result);
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
                 case "7":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Beam_Mode, out result))
+                    {
                         Console.WriteLine("Was unable to perform OCR.");
+                        return false;
+                    }
                     else
-                        if (result != null) Console.WriteLine(result);
-                    break;
+                    {
+                        if (result != null)
+                        {
+                            Console.WriteLine(result);
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
                 case "8":
                     if (!LHCOCR.ProcessData(Machine.Vistar.Pages.LHC_Page_1_Comments, out result))
+                    {
                         Console.WriteLine("Was unable to perform OCR.");
+                        return false;
+                    }
                     else
-                        if (result != null) Console.WriteLine(result);
-                    break;
+                    {
+                        if (result != null)
+                        {
+                            Console.WriteLine(result);
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
                 default:
-                    break;
+                    return false;
             }
         }
 
