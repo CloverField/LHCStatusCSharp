@@ -527,53 +527,78 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckIndividualEXPMagnet(string input, int i = 1)
+        public static bool CheckIndividualEXPMagnet(string input, int i = 1)
         {
-            Console.WriteLine("Which magnet do you want to check?");
-            var expMagnetValues = Enum.GetValues(typeof(Machine.EXPMagnets)).Cast<Machine.EXPMagnets>();
-            i = 1;
-            expMagnetValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString().Replace('_', ' ')));
-            input = Console.ReadLine();
             switch (input)
             {
                 case "1":
                     if (MagnetStatus.GetEXPMagnetStatusIndividual(Machine.EXPMagnets.ALICE_dipole))
+                    {
                         Console.WriteLine("The ALICE Dipole is functioning correctly");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like there is a fault in the ALICE Dipole.");
-                    break;
+                        return false;
+                    }
                 case "2":
                     if (MagnetStatus.GetEXPMagnetStatusIndividual(Machine.EXPMagnets.ALICE_solenoid))
+                    {
                         Console.WriteLine("The ALICE Solenoid is functioning correctly");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like there is a fault in the ALICE Solenoid.");
-                    break;
+                        return false;
+                    }
                 case "3":
                     if (MagnetStatus.GetEXPMagnetStatusIndividual(Machine.EXPMagnets.ATLAS_solenoid))
+                    {
                         Console.WriteLine("The ATLAS Solenoid is functioning correctly");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like there is a fault in the ATLAS Solenoid.");
-                    break;
+                        return false;
+                    }
                 case "4":
                     if (MagnetStatus.GetEXPMagnetStatusIndividual(Machine.EXPMagnets.ATLAS_torid))
+                    {
                         Console.WriteLine("The ATLAS Torid is functioning correctly");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like there is a fault in the ATLAS Torid.");
-                    break;
+                        return false;
+                    }
                 case "5":
                     if (MagnetStatus.GetEXPMagnetStatusIndividual(Machine.EXPMagnets.CMS_solenoid))
+                    {
                         Console.WriteLine("The CMS Solenoid is functioning correctly");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like there is a fault in the CMS Solenoid.");
-                    break;
+                        return false;
+                    }
                 case "6":
                     if (MagnetStatus.GetEXPMagnetStatusIndividual(Machine.EXPMagnets.LHCb_dipole))
+                    {
                         Console.WriteLine("The LHCb Dipole is functioning correctly");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like there is a fault in the LHCb Dipole.");
-                    break;
+                        return false;
+                    }
                 default:
-                    break;
+                    return false;
             }
         }
 

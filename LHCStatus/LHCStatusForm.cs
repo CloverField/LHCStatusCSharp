@@ -96,7 +96,7 @@ namespace LHCStatus
                     CheckEXPMagnetsSelected();
                     break;
                 case "10":
-                    CheckIndividualEXPMagnetClicked();
+                    CheckIndividualEXPMagnetSelected();
                     break;
                 case "11":
                     CheckBeamSMPFlagsSelected();
@@ -112,7 +112,7 @@ namespace LHCStatus
             }
         }
 
-        private void CheckIndividualEXPMagnetClicked()
+        private void CheckIndividualEXPMagnetSelected()
         {
             LHCButtonTableLayoutPanel.Controls.Clear();
             var expMagnets = Enum.GetValues(typeof(Machine.EXPMagnets)).Cast<Machine.EXPMagnets>();
@@ -124,9 +124,9 @@ namespace LHCStatus
                     Text = expMagnet.ToString().Replace('_', ' '),
                     AutoSize = true
                 };
+                b.Click += CheckIndividualEXPMagnetClick;
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
-            throw new NotImplementedException();
         }
 
         private void CheckBeamDumpIndividualSelected()
@@ -399,6 +399,34 @@ namespace LHCStatus
                 b.Click += IndividualMagnetClick;
                 LHCButtonTableLayoutPanel.Controls.Add(b);
             }
+        }
+
+        private void CheckIndividualEXPMagnetClick(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            var expMagnets = Enum.GetValues(typeof(Machine.EXPMagnets)).Cast<Machine.EXPMagnets>().ToList();
+            var input = (expMagnets.FindIndex(f => f.ToString() == button.Name) + 1);
+
+            var task = Task<bool>.Factory.StartNew(() =>
+            {
+                return Functions.CheckIndividualEXPMagnet(input.ToString());
+            });
+
+            if (!task.Wait(4000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("The {0} is idle.", button.Text));
+            else
+                MessageBox.Show(String.Format("The {0} is FLT_Off.", button.Text));
+
+            Reset();
         }
 
         private void IndvidualComponentClick(object sender, EventArgs e)
