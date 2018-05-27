@@ -748,75 +748,105 @@ namespace LHCStatusFunctions
             }
         }
 
-        public static void CheckIndividualPCPermit(string input, int i = 1)
+        public static bool CheckSectorPCPermit(string input, int i = 1)
         {
-            Console.WriteLine("What sector do you want to check?");
-            var sectorValues = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
-            i = 1;
-            sectorValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            input = Console.ReadLine();
             switch (input)
             {
                 case "1":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S12))
+                    {
                         Console.WriteLine("The PC Permit is set in Sector 12.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the PC Permit is not set in Sector 12.");
-                    break;
+                        return false;
+                    }
                 case "2":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S23))
+                    {
                         Console.WriteLine("The PC Permit is set in Sector 23.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the PC Permit is not set in Sector 23.");
-                    break;
+                        return false;
+                    }
                 case "3":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S34))
+                    {
                         Console.WriteLine("The PC Permit is set in Sector 34.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the PC Permit is not set in Sector 34.");
-                    break;
+                        return false;
+                    }
                 case "4":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S45))
+                    {
                         Console.WriteLine("The PC Permit is set in Sector 45.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the PC Permit is not set in Sector 45.");
-                    break;
+                        return false;
+                    }
                 case "5":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S56))
+                    {
                         Console.WriteLine("The PC Permit is set in Sector 56.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the PC Permit is not set in Sector 56.");
-                    break;
+                        return false;
+                    }
                 case "6":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S67))
+                    {
                         Console.WriteLine("The PC Permit is set in Sector 67.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the PC Permit is not set in Sector 67.");
-                    break;
+                        return false;
+                    }
                 case "7":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S78))
+                    {
                         Console.WriteLine("The PC Permit is set in Sector 78.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the PC Permit is not set in Sector 78");
-                    break;
+                        return false;
+                    }
                 case "8":
                     if (CryoStatus.GetIndividualSixtyAmpPCPermitStatus(Machine.Cryo.PCPermit.S81))
+                    {
                         Console.WriteLine("The PC Permit is set in Sector 81.");
+                        return true;
+                    }
                     else
+                    {
                         Console.WriteLine("Looks like the PC Permit is not set in Sector 81.");
-                    break;
+                        return false;
+                    }
                 default:
-                    break;
+                    return false;
             }
         }
 
         public static bool CheckCryo(string input, int i = 1)
         {
-            //Console.WriteLine("What sector do you want to check?");
-            //var cryoValues = Enum.GetValues(typeof(Machine.Cryo.Sectors)).Cast<Machine.Cryo.Sectors>();
-            //i = 1;
-            //cryoValues.ToList().ForEach(s => Console.WriteLine(i++ + "." + s.ToString()));
-            //input = Console.ReadLine();
             switch (input)
             {
                 case "1":

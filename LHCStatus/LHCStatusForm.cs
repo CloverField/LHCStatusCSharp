@@ -113,7 +113,7 @@ namespace LHCStatus
                     Functions.CheckCryoStatusForIndividualMagnet(input);
                     break;
                 case "3":
-                    Functions.CheckIndividualPCPermit(input);
+                    CheckSectorPCPermitSelected(input);
                     break;
                 case "4":
                     Functions.CheckIndividualPCPermits(input);
@@ -148,6 +148,48 @@ namespace LHCStatus
                 default:
                     break;
             }
+        }
+
+        private void CheckSectorPCPermitSelected(string input)
+        {
+            LHCButtonTableLayoutPanel.Controls.Clear();
+            var sectorValues = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>();
+            foreach (var value in sectorValues)
+            {
+                var b = new Button()
+                {
+                    Name = value.ToString(),
+                    Text = value.ToString()
+                };
+                b.Click += SectorButtonClick;
+                LHCButtonTableLayoutPanel.Controls.Add(b);
+            }
+        }
+
+        private void SectorButtonClick(object sender, EventArgs e)
+        {
+            var sectorValues = Enum.GetValues(typeof(Machine.Cryo.PCPermit)).Cast<Machine.Cryo.PCPermit>().ToList();
+            Button button = sender as Button;
+            var input = (sectorValues.FindIndex(f => f.ToString() == button.Name) + 1).ToString();
+            var task = Task<bool>.Factory.StartNew(() => {
+                return Functions.CheckSectorPCPermit(input);
+            });
+
+            if (!task.Wait(10000))
+                throw new Exception("Timed out waiting for task to complete.");
+
+            if (task.IsFaulted)
+                throw new Exception("Task failed.");
+
+            if (task.Exception != null)
+                throw task.Exception;
+
+            if (task.Result)
+                MessageBox.Show(String.Format("PC Permits are good for Sector {0}.", sectorValues[int.Parse(input) - 1]));
+            else
+                MessageBox.Show(String.Format("PC Permits are good for {0}.", sectorValues[int.Parse(input) - 1]));
+
+            Reset();
         }
     }
 }
