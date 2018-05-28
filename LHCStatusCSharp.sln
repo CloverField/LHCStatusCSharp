@@ -35,7 +35,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR", "OCR\OCR.csproj", "{5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCRTests", "OCRTests\OCRTests.csproj", "{1014DAA2-B1C2-4E85-9C98-79C3173817EB}"
 EndProject
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LHCStatusFunctions", "LHCStatusFunctions\LHCStatusFunctions.csproj", "{EB4A745B-2420-4E40-B353-8DB67D44C2E7}"
+=======
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{14681DA7-FFE3-4AC1-A398-65465B26FC00}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+>>>>>>> 5476be4... Created Readme.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
