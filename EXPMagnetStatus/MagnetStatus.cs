@@ -11,9 +11,11 @@ namespace EXPMagnetStatus
 {
     public static class MagnetStatus
     {
+        private const string vistarUrl = "https://vistar-capture.web.cern.ch/vistar-capture/lhcexpmag.png";
+
         private static bool GetMagnetStatusPageAsync(out Bitmap expMagnetImg)
         {
-            if (!Retrieve.GetBitMap("https://vistar-capture.web.cern.ch/vistar-capture/lhcexpmag.png", out expMagnetImg))
+            if (!Retrieve.GetBitMap(vistarUrl, out expMagnetImg))
                 return false;
             return true;
         }

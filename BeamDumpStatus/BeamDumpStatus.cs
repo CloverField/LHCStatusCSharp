@@ -11,9 +11,10 @@ namespace BeamDump
 {
     public static class BeamDumpStatus
     {
+        private const string vistarUrl = "https://vistar-capture.web.cern.ch/vistar-capture/lhcbds.png";
         private static bool GetBeamDumpStatusAsync(out Bitmap beamDumpImg)
         {
-            if (!Retrieve.GetBitMap("https://vistar-capture.web.cern.ch/vistar-capture/lhcbds.png", out beamDumpImg))
+            if (!Retrieve.GetBitMap(vistarUrl, out beamDumpImg))
                 return false;
             return true;
         }

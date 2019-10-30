@@ -13,9 +13,11 @@ namespace Cryogenics
 {
     public class CryoStatus
     {
+        private const string vistarUrl = "https://vistar-capture.web.cern.ch/vistar-capture/lhc2.png";
+
         private static bool GetCryoStatusPageAsync(out Bitmap cryoImg)
         {
-            if (!Retrieve.GetBitMap("https://vistar-capture.web.cern.ch/vistar-capture/lhc2.png", out cryoImg))
+            if (!Retrieve.GetBitMap(vistarUrl, out cryoImg))
                 return false;
             return true;
         }

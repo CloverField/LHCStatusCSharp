@@ -11,9 +11,11 @@ namespace Page1Status
 {
     public static class PageStatus
     {
+        private const string vistarUrl = "https://vistar-capture.web.cern.ch/vistar-capture/lhc1.png";
+
         private static bool GetPage1PageAsync(out Bitmap lhc1Img)
         {
-            if (!Retrieve.GetBitMap("https://vistar-capture.web.cern.ch/vistar-capture/lhc1.png", out lhc1Img))
+            if (!Retrieve.GetBitMap(vistarUrl, out lhc1Img))
                 return false;
             return true;
         }
