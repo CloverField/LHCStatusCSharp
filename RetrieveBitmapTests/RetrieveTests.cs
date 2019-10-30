@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RetrieveBitmap.Tests
@@ -26,6 +27,20 @@ namespace RetrieveBitmap.Tests
             {
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
+        }
+
+        [TestMethod]
+        public async Task GetBitMapAysncTest()
+        {
+            //Arrange
+            var address = @"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
+
+            //Act
+            var result = await RetriveAsync.GetBitmapAsync(address, new CancellationToken())
+                .ConfigureAwait(false);
+
+            //Assert
+            Assert.IsNotNull(result);
         }
     }
 }
